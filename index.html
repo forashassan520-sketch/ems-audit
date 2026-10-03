@@ -1,0 +1,2649 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>مساعد نائب العمليات</title>
+  <style>
+:root{--bg:#161B22;--bg2:#1C2330;--panel:rgba(30,38,52,.88);--bd:rgba(148,178,200,.20);--cy:#7FB8D6;--em:#6FBF9B;--am:#D9A85B;--ro:#C9626F;--tx:#DCE3EA;--dim:#9AA9B8;--ease:cubic-bezier(.22,.8,.3,1)}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:"Segoe UI",Tahoma,"Noto Naskh Arabic",Arial,sans-serif;direction:rtl;color:var(--tx);min-height:100vh;padding:104px 16px 40px;background:radial-gradient(900px 500px at 85% -10%,rgba(127,184,214,.10),transparent 60%),radial-gradient(700px 500px at 0% 100%,rgba(111,191,155,.07),transparent 60%),linear-gradient(160deg,var(--bg),var(--bg2));background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(148,178,200,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(148,178,200,.035) 1px,transparent 1px);background-size:38px 38px;z-index:0}
+.brand-badge{position:fixed;top:12px;left:12px;z-index:1000;display:flex;align-items:center;gap:12px;padding:8px 18px 8px 10px;border-radius:999px;direction:rtl;background:rgba(26,33,46,.82);border:1px solid var(--bd);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 8px 32px rgba(0,0,0,.5),0 0 22px rgba(127,184,214,.12)}
+.brand-badge img{width:54px;height:54px;border-radius:50%;object-fit:cover;border:2px solid var(--cy);box-shadow:none}
+.brand-text strong{display:block;font-size:16px;font-weight:800;color:#EEF2F6}
+.brand-text span{display:block;margin-top:2px;font-size:12px;color:var(--dim)}
+.container{position:relative;z-index:1;max-width:980px;margin:0 auto}
+h2{text-align:center;font-size:clamp(22px,4vw,32px);font-weight:800;margin-bottom:22px;color:#EEF2F6;letter-spacing:.3px}
+h3{font-size:18px;color:var(--cy)}
+label{display:block;margin:14px 0 6px;font-size:14px;color:var(--dim);font-weight:600}
+textarea,.card input,.unit-number-input{width:100%;font:inherit;color:var(--tx);background:rgba(18,24,33,.7);border:1px solid var(--bd);border-radius:14px;outline:none;transition:border-color .2s,box-shadow .2s}
+textarea{min-height:140px;padding:12px 14px;resize:vertical;line-height:1.7}
+textarea:focus,.card input:focus,.unit-number-input:focus{border-color:var(--cy);box-shadow:0 0 0 3px rgba(127,184,214,.15),0 0 18px rgba(127,184,214,.15)}
+::placeholder{color:#6B7C8D}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+button{font:inherit;font-weight:700;font-size:14px;color:#0F1720;cursor:pointer;border:1px solid transparent;border-radius:999px;padding:10px 18px;background:linear-gradient(135deg,var(--cy),#5E9CC0);transition:transform .18s var(--ease),box-shadow .2s,filter .2s}
+button:hover{transform:translateY(-2px);box-shadow:none;filter:brightness(1.08)}
+button:active{transform:translateY(0) scale(.97)}
+.danger{color:#fff;background:linear-gradient(135deg,var(--ro),#A24A57)}.danger:hover{box-shadow:none}
+.success{color:#0F1A15;background:linear-gradient(135deg,var(--em),#8ED1B0)}.success:hover{box-shadow:none}
+.warning{color:#1F1608;background:linear-gradient(135deg,var(--am),#E6BE7E)}.warning:hover{box-shadow:none}
+.secondary{color:var(--cy);background:rgba(127,184,214,.08);border-color:rgba(127,184,214,.35)}
+.active{color:#0F1720;background:linear-gradient(135deg,var(--cy),#5E9CC0);box-shadow:none}
+.result{margin-top:18px;padding:14px 16px;white-space:pre-wrap;line-height:1.9;font-size:14px;border-radius:14px;color:#D3DEE8;background:rgba(18,24,33,.7);border:1px solid var(--bd);border-right:3px solid var(--cy);min-height:54px;overflow-wrap:anywhere}
+.section-box{margin-bottom:20px;border-radius:22px;background:var(--panel);border:1px solid var(--bd);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 18px 50px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.04);overflow:hidden}
+.section-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;cursor:pointer;background:linear-gradient(90deg,rgba(127,184,214,.07),transparent);border-bottom:1px solid var(--bd);transition:background .2s}
+.section-header:hover{background:linear-gradient(90deg,rgba(127,184,214,.14),transparent)}
+.section-header::after{content:"▾";color:var(--cy);font-size:18px;transition:transform .25s}
+.section-box.collapsed .section-header::after{transform:rotate(90deg)}
+.section-box.collapsed .section-header{border-bottom-color:transparent}
+.section-content{padding:6px 20px 22px}
+.section-box.collapsed .section-content{display:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-top:15px}
+.card{padding:12px;border-radius:16px;background:rgba(18,24,33,.55);border:1px solid var(--bd)}
+.card-title{font-size:13px;font-weight:700;color:var(--cy);margin-bottom:8px;text-align:center}
+.card input{padding:9px;text-align:center}
+.hint{margin-top:14px;font-size:13px;line-height:1.8;color:var(--dim)}
+.total-box{margin-top:14px;padding:10px 14px;border-radius:12px;font-weight:700;color:var(--cy);background:rgba(127,184,214,.07);border:1px dashed rgba(127,184,214,.3)}
+.copy-wrap{margin-top:12px}
+.history-actions{display:flex;gap:10px;margin-top:14px}
+.icon-btn{width:44px;height:44px;padding:0;font-size:20px;display:grid;place-items:center}
+.icon-disabled,.redo-disabled{opacity:.35;cursor:not-allowed;filter:grayscale(.6);box-shadow:none!important;transform:none!important}
+.fixed-output-wrap{display:none;margin-top:16px;padding:12px;border-radius:16px;background:rgba(111,191,155,.06);border:1px solid rgba(111,191,155,.3)}
+.fixed-output-wrap.show{display:block}
+.fixed-output-wrap label{margin-top:0;color:var(--em)}
+.signature{position:relative;z-index:1;text-align:center;margin:30px auto 0;padding-top:16px;font-size:12px;line-height:1.8;color:#8392A3;border-top:1px solid var(--bd);letter-spacing:.3px}
+.unit-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(10,14,20,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.unit-modal.show{display:flex}
+.unit-modal-box{width:min(440px,100%);padding:22px;border-radius:24px;background:rgba(26,33,46,.95);border:1px solid rgba(127,184,214,.3);box-shadow:none,0 24px 70px rgba(0,0,0,.6)}
+.unit-modal-title{text-align:center;margin-bottom:16px;color:#fff}
+.unit-modal-letters{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;direction:ltr}
+.unit-letter-btn{padding:10px 0;color:var(--cy);background:rgba(127,184,214,.07);border-color:rgba(127,184,214,.25)}
+.unit-letter-btn.active{color:#0F1720;background:linear-gradient(135deg,var(--cy),#5E9CC0);box-shadow:none}
+.unit-entry-row{display:flex;align-items:center;gap:10px;margin-top:16px;direction:ltr}
+.unit-side-btn{padding:12px 14px;white-space:nowrap;color:var(--cy);background:rgba(127,184,214,.08);border-color:rgba(127,184,214,.3)}
+.unit-code-box{flex:1;display:flex;align-items:center;gap:6px;direction:ltr}
+.unit-preview-letter{min-width:46px;padding:11px 0;text-align:center;font-weight:800;font-size:20px;border-radius:12px;color:var(--cy);background:rgba(18,24,33,.8);border:1px solid var(--bd)}
+.unit-preview-dash{font-size:22px;color:var(--dim)}
+.unit-number-input{padding:11px;text-align:center;font-size:20px;letter-spacing:4px}
+.unit-modal-hint{margin-top:14px;font-size:12.5px;line-height:1.8;text-align:center;color:var(--dim)}
+.unit-modal-actions{display:flex;gap:10px;margin-top:18px}
+.unit-modal-actions button{flex:1}
+.custom-context-menu{position:fixed;top:0;left:0;width:min(250px,calc(100vw - 28px));padding:14px;border-radius:22px;direction:rtl;user-select:none;z-index:20000;display:none;opacity:0;transform:translate3d(0,10px,0) scale(.97);transform-origin:top right;background:rgba(26,33,46,.94);border:1px solid rgba(127,184,214,.28);box-shadow:0 24px 70px rgba(0,0,0,.6),0 0 30px rgba(127,184,214,.12);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);transition:opacity .18s var(--ease),transform .18s var(--ease)}
+.custom-context-menu.show{display:block;opacity:1;transform:none}
+.custom-context-menu-title{text-align:center;font-size:13px;font-weight:700;color:var(--cy);margin-bottom:10px;letter-spacing:.5px}
+.custom-context-menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.context-action-btn{width:100%;padding:10px;font-size:13px;color:var(--tx);background:rgba(127,184,214,.07);border-color:rgba(127,184,214,.22)}
+.context-action-btn:disabled{opacity:.35;cursor:not-allowed;box-shadow:none;transform:none}
+.context-action-btn-wide,.context-action-btn-refresh{margin-top:2px;color:#0F1720;background:linear-gradient(135deg,var(--cy),#5E9CC0)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:#121820}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--cy),#4E8AA8);border-radius:10px;box-shadow:0 0 10px rgba(127,184,214,.6)}
+*{scrollbar-width:thin;scrollbar-color:#7FB8D6 #121820}
+@media(max-width:700px){body{padding:92px 10px 30px}.brand-badge{top:8px;left:8px;padding:6px 14px 6px 8px;gap:9px}.brand-badge img{width:44px;height:44px}.brand-text strong{font-size:15px}.brand-text span{font-size:11px}.section-content{padding:4px 14px 18px}.actions button{flex:1 1 calc(50% - 10px);padding:10px 8px;font-size:13px}.unit-modal-letters{grid-template-columns:repeat(5,1fr)}}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0B0F17;--bg2:#111827;--panel:rgba(22,30,46,.72);--bd:rgba(148,163,184,.14);--cy:#38BDF8;--em:#34D399;--am:#FBBF24;--ro:#F43F5E;--tx:#E2E8F0;--dim:#94A3B8}
+body{font-family:"Tajawal","Readex Pro","Segoe UI",Tahoma,sans-serif;-webkit-font-smoothing:antialiased;background:linear-gradient(180deg,#0B0F17,#111827) fixed;padding-top:24px}
+body::before{opacity:.5}
+.brand-badge{position:static;margin:0 auto 20px;width:max-content;max-width:100%;padding:10px 20px 10px 14px;background:rgba(22,30,46,.7);border:1px solid var(--bd)}
+.brand-badge img{border-color:rgba(56,189,248,.55);box-shadow:0 0 16px rgba(56,189,248,.28)}
+.brand-text strong{color:#fff;font-size:18px}.brand-text span{font-size:12px}
+.section-box{background:var(--panel);border-color:var(--bd)}
+.io-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.io-box{min-width:0}.io-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}.io-head label{margin:0}
+.io-box textarea{min-height:190px;font-family:ui-monospace,Consolas,monospace;font-size:13px}
+.trash-btn{width:34px;height:34px;padding:0;font-size:15px;border-radius:10px;color:var(--dim);background:rgba(148,163,184,.08);border:1px solid var(--bd)}
+.trash-btn:hover{background:rgba(244,63,94,.14);box-shadow:none;filter:none}
+.main-action{display:flex;justify-content:center;margin-top:18px}
+.primary-cta{padding:13px 26px;font-size:16px;font-weight:800;border-radius:14px;color:#0B1220;background:linear-gradient(135deg,#38BDF8,#7DD3FC);max-width:100%}
+.stats-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.stat-card{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:rgba(15,23,36,.6);border:1px solid var(--bd)}
+.stat-ico{font-size:22px}.stat-num{font-size:24px;font-weight:800;color:#F1F5F9;line-height:1.1}.stat-lbl{font-size:12px;color:var(--dim);margin-top:2px}
+.out-card{margin-top:16px;padding:14px 16px;border-radius:16px;background:rgba(15,23,36,.6);border:1px solid var(--bd)}
+.out-title{font-weight:800;font-size:15px;color:var(--cy);margin-bottom:10px}
+.out-empty{font-size:13px;color:#64748B}
+.out-ok{padding:10px 12px;border-radius:12px;font-weight:700;font-size:14px;color:var(--em);background:rgba(52,211,153,.10);border:1px solid rgba(52,211,153,.28)}
+.out-warn{padding:10px 12px;border-radius:12px;font-size:13.5px;line-height:1.9;color:#E2E8F0;background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.22);margin-bottom:8px}
+.out-warn b{display:block;color:var(--am);margin-bottom:2px}.out-warn div{overflow-wrap:anywhere}
+.out-warn.bad{background:rgba(244,63,94,.07);border-color:rgba(244,63,94,.25)}.out-warn.bad b{color:#FB7185}
+.out-card .fixed-output-wrap{margin:0;padding:0;border:0;background:none}
+#compareFixedWrap{display:block}
+#compareFixedOutput{min-height:200px;font-family:ui-monospace,Consolas,monospace;font-size:13px}
+.copy-cta{width:100%;padding:12px;border-radius:12px;font-size:15px;color:#06150F;background:linear-gradient(135deg,#34D399,#6EE7B7)}
+.signature{color:#64748B}
+.custom-context-menu{width:min(260px,calc(100vw - 28px));background:rgba(17,24,39,.94);border-color:var(--bd)}
+.custom-context-menu-grid{grid-template-columns:1fr}
+.context-action-btn{text-align:right}.ctx-fix{color:#0B1220;background:linear-gradient(135deg,#38BDF8,#7DD3FC)}
+@media(max-width:700px){.io-grid{grid-template-columns:1fr}.stats-bar{grid-template-columns:1fr}.primary-cta{font-size:14px;padding:12px 16px;width:100%}body{padding-top:14px}}
+</style>
+</head>
+<body>
+  <div class="brand-badge">
+    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAB4AHgDASIAAhEBAxEB/8QAGwAAAgMBAQEAAAAAAAAAAAAAAwQABQYCAQf/xAA5EAACAQMDAQUHAgQFBQAAAAABAgMABBEFEiExEyJBUWEGFDJCcYGRI1IzQ6GxFSRikvBEU4LB0f/EABsBAAIDAQEBAAAAAAAAAAAAAAECAAMFBAYH/8QAKhEAAgIBAwMDAgcAAAAAAAAAAAECEQMEEiEFEzFBUWEiMhYjJJGx0fD/2gAMAwEAAhEDEQA/APixiftR/EJx4daIIJP2SmrIWWLjaI2Hczjf60T3N/2H7vVNllFU8TALmOTk+JoiwgjmNvu1Nz2xQJlPm57+c1FiXGREn3ajZKFGjGxsREHHXdXqICgHZL06lqYYKVP6UYPgd1erHuVSY4Bx1JoWSuAAiXxWP7tSJGJCP9XhVpsCkHEI+1Vz/wAVunxHp9aZAkgXhVlbwIyRk9lkxjO4+v8Aeq+tRp0UQigZ2j/gDG5M45/vQm6JBWV7WJUZElt9KBNCVVTvhPPRRWheGI89sufDEdIXcR7hVwTuHHZ4pEx9pWBTj40z6JXDBiCCy9P2VZCOcjPe9MR0Iicght/T9lNYtFegYIAWIAHQLUp2OCQxr35cY4wtSpZKGZcLPxHEe70D1BLt/lQ/7qiqguG3NAo2j4lOOv8AeinZjh4fslLY7Qu0yl0JigGG/P1poSQkf9Mvh0pdgA8eZFHe/Z0oxMQ5NxgekWKgAU7xCNwrwcg9F5oazxLApeS3GB+3mkL/AFGKItFCzOehO3AFVMt3LKBuY4XoBTxi2K5ehdm+gD4MkYB+YxnFVrOrTuAwJ3E8fWq55WbgsxHlmvVY8cny4p1GhGx4+WK1NnORBb7HkysIBxHnH/POsUGKnIJz61rdG1GGfaD24kWIKUjxnj/1STTobG1ZYm4uOvaS+n6VLS3NwzRl2lO1wR3Mc06xd/kuceGSKVuI2jMbOkwHaDq3X6etVFoX3hmHfNz9lpeWVSGANz+BTWIyAewm/wDKUUrMiYY9i44P8ymFBQS4gQE3OMcbcY+1SvYbGRoUOyQggYO/ipRIcdvvnMjTAHaAD2fWiid8cTk/SOkhMDMS0j5284FGFxGB8c2PpUolknkdym+Z8Bv2YxVbqd7JAiqkjndkcjFNXE6sV2vITn5qo9VfdeFecKoHNNFciyfAnu5yTzXhOaiqzttUEk+ArUWPsZPPEklzN2KkZIAyeegFPKaj5BjxSyOooy1eitZP7F7Y5DDd7nHwB0xn0NZm5s7izfE8TRk5xkdaEckZeGNkwzx/cjgN/wANdRyvE4eNyjDoQelBzXuacqNrpl4L62DKjlhw36vjTE8XCb43PfHBkzWY0G6EN28boHV14BbGCK0E1wjhdsCL3hyGqiUaZdGXAYRxgY7PHPjIa4aNe9+kOh/mVwZUxyEH3oEjrz/D/NCiWexOezUmMdOu6pSy3ChR8GalEDYAjM57k3wj60VUzz2UprnfGZCzKwUjACtRDLbAAlJTn/WaNgtA3gfufpsCW4yao78Fb2VWBBB8au5JoSy7Y37p5y5NU16pkuXkCkBjwM5poeQSafguvZDR5NQ1VW2jZGCXDccEcf3/AAK+lmzKxjcBhR4V8xaea3l/yjzROiqjMr4yBwM09a+1Gps6wTTdqh4BxyaoyxlPlGhppxxfS/JspY95wvwis77SpbrpkonPfkIMY8Sw4GBQLr2ju7HutGSTzg8VTTe0E73nvjW0bzL/AA9/eEflgf1+ppceOV2WZ80NriUUsbxSMkilXU4IPUGuasVsrrUPebuUndgueMl2+lVprsTsypRaHNNJGowY28uB3ula2aMBEG63BLAd16y2jpv1OEmMSKuWKnocCtPPMXWNEtIkAORhf71Xk8jQkkT3Uf8Aetv91Cki2I3+Yt+h4Bocl5MikdnGB6LSvvkrbgEjzj9tKHeHhKiJT2tvkjoVyalKpcThcKq4HHSpRFtChvXIx2vH0rlrpj/N9KUxXu0VZsQljAuDjHamvUlj7QB2YqSNwHiM0sB6CvVbawYdRyKm1ETpn0vU/Z6CcCWxnRDIAWQrnNE032dtrEo90omuB8IC4CULQNRL6etyVySOh8DTsOvwaWGGpQyC5mJdW28bPACs57vtPRY1BpToq9X0uDU7p8jDDgVm20K5SURi2dgp+U8H61qbvVbK7L3FlI3vCkHswvVfGmReLLEkyd2T0pozlEWeGE/JU6f7NXNmRPKdq9dnlWS1DSRDr72cTZRiGU46A+BrdajrLpATK4AA/NU1mbSC1uNRuVDzyqdoY+vhT45yVt+pRmwwk1HxRQXcFvp140MErttUBiD83jQWuVIAAY/epKxlkZyO8xyaER6V2KPHJjzknJteCNOh6qfzXHaIOgb814wxXFHahQgmUfKalDx9KlTaiHQx51O751fwaTvdsR8A8+lMtowSUjZ0zVbyoNGX486gxWyXQBtU7BgkDp60o+jkFW2ALk54od5BpA9C1xdOsHiaDtjvyozwM03de/60FnuYrg7uFKpnb5DFVT23uzpKPgR+99M9avzpV3cRrcWmoWwVxkL2gzVE+Ha9TV0s1OG2fKRXwX1zoEu7Y2G4KypjIpyPWLWdGlRgmOdh6igXNlfWybrxlkXHUNkVlpJR2zbPE8etSMFMbLleF1Hx7FndXcup3ixRjcWYKqjxJpeRtncYsSpx0Jq69mNPaGcXkw/U+QH5fX61a3WhrHI7DoWJ56Y8KsWSMXSOLPCW1Tl6mLLL0AbP0rhuOqtn6VspNDZcPgA7cjikzpbdsisvUkcU3eRy7UZVvHKt+K52k8hGP2rVTabjGVAPSvbTSTJErFRtIIo97iyUjKBWPyN+Kla1dKCSAMABkA1KHeJSNFp9lnec4JxnIzRLy0CqwUkknANDstRVUYk9CB/Sur7UVCKVxzXJToHqeJGVjKFj3WGKD7uZbcguRkEHNc215GzHLEgv40ZrgLAm0cnNDkJUWumq0hjlO4MGUjPhWY1HS7iyunSJy0YY7cnBrY2eYrntWYBNrFsngGha1aiQK8Z3KwDYxjGatjNrkvwRU24mJEd5INjyMF8i2asLGxWNgxGW8zViunsgyVNWNjpUsjL3D9MUZ5klzwdUcSi7kP6PAXkAC8CtNqmlXbWttPYx9ocbZVEe9h5HHl1rnTNMktQrSKIwR1br9hWhtrh4iOxUk5zufj+n/wDrjxvUZsn6eG75fC/czOqdd0eDH23K38Hz2a7vO+DcxYHGDCAcfmkLC9e81GaN2U9lGGB245OQa3esey9pqk73JQpLJy4RyoY+fHjWXbQZNIuJWjtpArDALktkfWtXPgeOH1QpmdouqabVK4T59nwxSYdrKBwB5edWVpbRC3XjgZ486p2wJ1wGTBznqKtIbnsraNsqyt4g9K4UjSYG6t17RBjGOvpUpTUb8dqCOh5IPFSmpkMentBMilRFHhueprp/aGeRVBij49TUqV3duPsAEmuTxuCqJwc85rX+z+m6/rsCypBBb2ueJpgQD9B1NSpVuHBDJOpIyes63LpNP3MXm65N9b+yOjQ2KxXF77zMWDykDYHA52AdQueviaHdaRbXE5d3VVzkKi9PSpUrlwdOjLJKMpyaXyv6MP8AEOtxQTxtJy8ujz/DtLjO5omlPqcD+lHSRE4ghjiA8VHP5qVK0sfTdNB3tt/PP8mdqOp6zOvzcjf++A8bHO5uvnRfeADjNSpXeuFwZLW58nXvaqOTXLXLP04FSpRsmyK5Eruxs7sZnt0Zv3AYP5FYL2vsL3SLeO6spS9pna4ZATH5c+XhUqVy6jDBxbrk2uj63Pj1EMak9rdV6GHl1W6lILyZxx8NSpUrMpH0A//Z" alt="د. علي الشمري">
+    <div class="brand-text"><strong>د. علي الشمري</strong><span>المساعد الذكي لإدارة العمليات الميدانية</span></div>
+  </div>
+
+  <div class="container">
+    <h2>مساعد نائب العمليات</h2>
+
+    <div class="section-box" id="compareSection">
+      <div class="section-content">
+        <div class="io-grid">
+          <div class="io-box">
+            <div class="io-head"><label for="report1">تقرير رقم 1 (القديم)</label><button class="trash-btn" id="btnClear1" type="button" title="مسح تقرير 1" aria-label="مسح تقرير 1">🗑️</button></div>
+            <textarea id="report1" placeholder="ضع تقرير 1 القديم هنا..."></textarea>
+          </div>
+          <div class="io-box">
+            <div class="io-head"><label for="report2">تقرير رقم 2 (الجديد)</label><button class="trash-btn" id="btnClear2" type="button" title="مسح تقرير 2" aria-label="مسح تقرير 2">🗑️</button></div>
+            <textarea id="report2" placeholder="ضع تقرير 2 الجديد هنا..."></textarea>
+          </div>
+        </div>
+        <div class="main-action"><button class="primary-cta" id="btnFixReport" type="button">⚡ إجراء الفحص الشامل وتصحيح التوزيع تلقائياً</button></div>
+        <div class="legacy-hidden" hidden style="display:none"><button id="btnCompare" type="button">قارن</button><button id="btnDup" type="button">تكرار</button><button id="btnDist" type="button">توزيع</button></div>
+        <div class="stats-bar" id="statsBar">
+          <div class="stat-card"><span class="stat-ico">🚓</span><div><div class="stat-num" id="statUnits">0</div><div class="stat-lbl">الوحدات الميدانية النشطة</div></div></div>
+          <div class="stat-card"><span class="stat-ico">🚪</span><div><div class="stat-num" id="statLeaders">0</div><div class="stat-lbl">تسجيل خروج</div></div></div>
+          <div class="stat-card"><span class="stat-ico">👥</span><div><div class="stat-num" id="statTotal">0</div><div class="stat-lbl">إجمالي الوحدات</div></div></div>
+        </div>
+        <div class="out-card" id="dupCard"><div class="out-title">⚠️ مربع كشف المتكررين</div><div class="out-body" id="dupBody"></div></div>
+        <div class="out-card" id="auditCard"><div class="out-title">📊 مربع توازن التوزيع والملاحظات الميدانية</div><div class="out-body" id="auditBody"></div></div>
+        <div class="out-card fixed-output-wrap show" id="compareFixedWrap">
+          <div class="out-title">📄 مربع التقرير النهائي المصحح</div>
+          <textarea id="compareFixedOutput" placeholder="بانتظار إجراء الفحص الميداني..."></textarea>
+          <div class="copy-wrap"><button class="success copy-cta" id="btnCopyCompareFixed" type="button">📋 نسخ التقرير المصحح</button></div>
+        </div>
+        <div class="result" id="compareResult" hidden style="display:none"></div>
+      </div>
+    </div>
+
+    <div id="waveSection" hidden style="display:none">
+      <div class="section-content">
+        <label>اختار الموقع:</label>
+        <div class="actions">
+          <button class="secondary" id="btnLosWave" type="button">لوس سانتوس</button>
+          <button class="secondary" id="btnSandyWave" type="button">ساندي وبوليتو</button>
+        </div>
+        <div id="locationTitle" class="total-box">اختار موقع بالبداية</div>
+        <div id="inputsContainer" class="grid"></div>
+        <div id="totalUnits" class="total-box" style="display:none;">إجمالي الوحدات: 0</div>
+        <div class="actions">
+          <button id="btnWaveCheck" type="button">فحص ترتيب الموجة 📡</button>
+          <button class="danger" id="btnWaveClear" type="button">تصفير قسم الموجة 🔄</button>
+        </div>
+        <div class="hint">اختار الموقع، بعدين اكتب عدد الوحدات الموجودة بكل قسم، وبعدها اضغط زر الفحص.</div>
+        <div class="result" id="waveResult"></div>
+      </div>
+    </div>
+
+    <div id="randomSection" hidden style="display:none">
+      <div class="section-content">
+        <label>ضع تقرير رقم 1:</label>
+        <textarea id="randomReport1" placeholder="ضع تقرير 1 هنا..."></textarea>
+        <label>ضع تقرير رقم 2:</label>
+        <textarea id="randomReport2" placeholder="ضع تقرير 2 هنا..."></textarea>
+        <div class="actions">
+          <button class="success" id="btnRandomize" type="button">تدوير وتوزيع عشوائي ذكي 🎲</button>
+          <button id="btnRandomCompare" type="button">مقارنة النتيجة 🔍</button>
+          <button id="btnRandomDup" type="button">فحص التكرار ⚠️</button>
+          <button id="btnRandomDist" type="button">فحص توازن التوزيع 📊</button>
+          <button class="secondary" id="btnUnitLogin" type="button">تسجيل دخول وحدة جديدة 🟢</button>
+          <button class="danger" id="btnUnitLogout" type="button">تسجيل خروج وحدة 🔴</button>
+          <button class="danger" id="btnRandomClear" type="button">تصفير القسم 🧹</button>
+        </div>
+        <div class="history-actions">
+          <button class="icon-btn icon-disabled" id="btnUndo" type="button" title="تراجع" aria-label="تراجع" disabled>↶</button>
+          <button class="icon-btn icon-disabled redo-disabled" id="btnRedo" type="button" title="تقديم" aria-label="تقديم" disabled>↷</button>
+        </div>
+        <div class="hint">التدوير العشوائي يشتغل على أقسام لوس سانتوس وساندي وبوليتو بس، ويحافظ على نفس عدد الوحدات الحقيقية بكل قسم، ويتجاهل الأكواد الوهمية مثل Y-0000.</div>
+        <label style="margin-top:16px; display:block;">التقرير 2 بعد التدوير والتوزيع:</label>
+        <textarea id="randomOutput" placeholder="التقرير بعد التدوير والتوزيع العشوائي راح يطلع هنا..."></textarea>
+        <div class="copy-wrap"><button class="success" id="btnCopyReport" type="button">انسخ التقرير الجديد 📋</button></div>
+        <div class="result" id="randomResult"></div>
+      </div>
+    </div>
+
+    <div class="signature">مساعد نائب العمليات</div>
+  </div>
+
+  <div class="unit-modal" id="unitCodeModal">
+    <div class="unit-modal-box">
+      <h3 class="unit-modal-title" id="unitModalTitle">إدخال كود الوحدة</h3>
+      <div class="unit-modal-letters" id="unitLetterButtons"><button type="button" class="unit-letter-btn" data-letter="R">R</button><button type="button" class="unit-letter-btn" data-letter="H">H</button><button type="button" class="unit-letter-btn" data-letter="P">P</button><button type="button" class="unit-letter-btn" data-letter="G">G</button><button type="button" class="unit-letter-btn" data-letter="C">C</button><button type="button" class="unit-letter-btn" data-letter="S">S</button><button type="button" class="unit-letter-btn" data-letter="M">M</button><button type="button" class="unit-letter-btn" data-letter="F">F</button><button type="button" class="unit-letter-btn" data-letter="A">A</button><button type="button" class="unit-letter-btn active" data-letter="E">E</button></div>
+      <div class="unit-entry-row">
+        <button type="button" class="unit-side-btn" id="btnDigitsToggle">3 أرقام</button>
+        <div class="unit-code-box">
+          <div class="unit-preview-letter" id="unitPreviewLetter">E</div>
+          <div class="unit-preview-dash">-</div>
+          <input type="text" id="unitNumberInput" class="unit-number-input" inputmode="numeric" maxlength="3" placeholder="000" autocomplete="off">
+        </div>
+        <button type="button" class="unit-side-btn" id="btnUnitBackspace">⌫</button>
+      </div>
+      <div class="unit-modal-hint">الوضع الافتراضي 3 أرقام — بس يكتمل إدخال الرقم يتقفل الكود وينزل تلقائياً</div>
+      <div class="unit-modal-actions">
+        <button type="button" class="secondary" id="btnUnitModalCancel">إلغاء</button>
+        <button type="button" class="success" id="btnUnitModalOk">تأكيد</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="custom-context-menu" id="customContextMenu" dir="rtl">
+    <div class="custom-context-menu-title">قائمة الأوامر التكتيكية السريعة</div>
+    <div class="custom-context-menu-grid">
+      <button type="button" class="context-action-btn" id="ctxCopy">📋 نسخ النص المحدد</button>
+      <button type="button" class="context-action-btn" id="ctxPaste">📥 لصق المحتوى</button>
+      <button type="button" class="context-action-btn ctx-fix" id="ctxFix">⚡ إجراء الفحص والتصحيح المباشر</button>
+    </div>
+    <div class="custom-context-menu-grid" style="display:none">
+      <button type="button" class="context-action-btn" id="ctxRedo">تقديم</button>
+      <button type="button" class="context-action-btn" id="ctxUndo">تراجع</button>
+    </div>
+    <button type="button" class="context-action-btn context-action-btn-refresh" id="ctxReload">🔄 تحديث وإعادة ضبط</button>
+  </div>
+
+
+  <script>
+    const losSections = ["لام 1", "لام 2", "لام 3", "لام 4", "لام 5", "فرسان"];
+    const sandySections = ["سين 1", "سين", "باء 1", "باء", "جيم 1", "جيم 2"];
+    const allowedMoveSections = [...losSections, ...sandySections];
+    const exitSectionName = "تسجيل خروج";
+
+    let selectedLocation = null;
+    let currentUnitLetter = "E";
+    let unitModalResolver = null;
+    let currentDigitLength = 3;
+
+    const undoStack = [];
+    const redoStack = [];
+
+    function toggleSection(sectionId) {
+      document.getElementById(sectionId).classList.toggle("collapsed");
+    }
+
+    function normalizeSection(name) {
+      return (name || "").replace(/\s+/g, " ").trim();
+    }
+
+    function getUnitCode(unit) {
+      return (unit || "").split("|")[0].trim().toUpperCase();
+    }
+
+    function isIgnoredUnit(unit) {
+      const u = getUnitCode(unit);
+      return u === "E-000" || u === "Y-0000";
+    }
+
+    function isRealUnit(unit) {
+      return !!getUnitCode(unit) && !isIgnoredUnit(unit);
+    }
+
+    function extractUnitsFromLine(line) {
+      const matches = line.match(/\b[A-Z]-\d+\b(?:\s*\|\s*<@\d+>)?/g) || [];
+      return matches.map(m => m.trim()).filter(isRealUnit);
+    }
+
+    function shuffleArray(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function captureHistoryState() {
+      return {
+        randomReport1: document.getElementById("randomReport1").value,
+        randomReport2: document.getElementById("randomReport2").value,
+        randomOutput: document.getElementById("randomOutput").value,
+        randomResult: document.getElementById("randomResult").textContent
+      };
+    }
+
+    function applyHistoryState(state) {
+      document.getElementById("randomReport1").value = state.randomReport1 ?? "";
+      document.getElementById("randomReport2").value = state.randomReport2 ?? "";
+      document.getElementById("randomOutput").value = state.randomOutput ?? "";
+      document.getElementById("randomResult").textContent = state.randomResult ?? "النتيجة راح تطلع هنا...";
+    }
+
+    function saveHistorySnapshot() {
+      undoStack.push(captureHistoryState());
+      if (undoStack.length > 100) undoStack.shift();
+      redoStack.length = 0;
+      updateHistoryButtons();
+    }
+
+    function updateHistoryButtons() {
+      const undoBtn = document.getElementById("btnUndo");
+      const redoBtn = document.getElementById("btnRedo");
+
+      const canUndo = undoStack.length > 0;
+      const canRedo = redoStack.length > 0;
+
+      if (undoBtn) {
+        undoBtn.disabled = !canUndo;
+        undoBtn.classList.toggle("icon-disabled", !canUndo);
+      }
+
+      if (redoBtn) {
+        redoBtn.disabled = !canRedo;
+        redoBtn.classList.toggle("redo-disabled", !canRedo);
+        redoBtn.classList.toggle("icon-disabled", !canRedo);
+      }
+    }
+
+    function undoLastAction() {
+      if (undoStack.length === 0) return;
+
+      redoStack.push(captureHistoryState());
+      const previousState = undoStack.pop();
+      applyHistoryState(previousState);
+      updateHistoryButtons();
+    }
+
+    function redoLastAction() {
+      if (redoStack.length === 0) return;
+
+      undoStack.push(captureHistoryState());
+      const nextState = redoStack.pop();
+      applyHistoryState(nextState);
+      updateHistoryButtons();
+    }
+
+    function updateDigitModeUI() {
+      const numberInput = document.getElementById("unitNumberInput");
+      const toggleBtn = document.getElementById("btnDigitsToggle");
+
+      numberInput.maxLength = currentDigitLength;
+      numberInput.placeholder = currentDigitLength === 3 ? "000" : "0000";
+      toggleBtn.textContent = currentDigitLength === 3 ? "3 أرقام" : "4 أرقام";
+
+      if (numberInput.value.length > currentDigitLength) {
+        numberInput.value = numberInput.value.slice(0, currentDigitLength);
+      }
+    }
+
+    function tryAutoSubmitUnitCode() {
+      const numberInput = document.getElementById("unitNumberInput");
+      if (numberInput.value.length === currentDigitLength) {
+        const finalCode = `${currentUnitLetter}-${numberInput.value}`;
+        closeUnitCodeModal(finalCode);
+      }
+    }
+
+    function openUnitCodeModal(titleText) {
+      return new Promise((resolve) => {
+        unitModalResolver = resolve;
+
+        const modal = document.getElementById("unitCodeModal");
+        const title = document.getElementById("unitModalTitle");
+        const numberInput = document.getElementById("unitNumberInput");
+
+        title.textContent = titleText || "إدخال كود الوحدة";
+        currentUnitLetter = "E";
+        currentDigitLength = 3;
+        updateUnitLetterSelection();
+        updateDigitModeUI();
+        numberInput.value = "";
+        modal.classList.add("show");
+
+        setTimeout(() => {
+          numberInput.focus();
+        }, 30);
+      });
+    }
+
+    function closeUnitCodeModal(result = null) {
+      const modal = document.getElementById("unitCodeModal");
+      modal.classList.remove("show");
+
+      if (unitModalResolver) {
+        unitModalResolver(result);
+        unitModalResolver = null;
+      }
+    }
+
+    function updateUnitLetterSelection() {
+      const preview = document.getElementById("unitPreviewLetter");
+      preview.textContent = currentUnitLetter;
+
+      document.querySelectorAll(".unit-letter-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.letter === currentUnitLetter);
+      });
+    }
+
+    function initUnitModal() {
+      const numberInput = document.getElementById("unitNumberInput");
+      const modal = document.getElementById("unitCodeModal");
+      const backspaceBtn = document.getElementById("btnUnitBackspace");
+      const digitsToggleBtn = document.getElementById("btnDigitsToggle");
+
+      document.querySelectorAll(".unit-letter-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          currentUnitLetter = btn.dataset.letter;
+          updateUnitLetterSelection();
+          numberInput.focus();
+        });
+      });
+
+      digitsToggleBtn.addEventListener("click", () => {
+        currentDigitLength = currentDigitLength === 3 ? 4 : 3;
+        updateDigitModeUI();
+        numberInput.focus();
+        tryAutoSubmitUnitCode();
+      });
+
+      backspaceBtn.addEventListener("click", () => {
+        numberInput.value = numberInput.value.slice(0, -1);
+        numberInput.focus();
+      });
+
+      numberInput.addEventListener("input", () => {
+        numberInput.value = numberInput.value.replace(/\D/g, "").slice(0, currentDigitLength);
+        tryAutoSubmitUnitCode();
+      });
+
+      numberInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          document.getElementById("btnUnitModalOk").click();
+        }
+        if (e.key === "Escape") {
+          closeUnitCodeModal(null);
+        }
+      });
+
+      document.getElementById("btnUnitModalCancel").addEventListener("click", () => {
+        closeUnitCodeModal(null);
+      });
+
+      document.getElementById("btnUnitModalOk").addEventListener("click", () => {
+        const rawNumber = numberInput.value.trim();
+
+        if (!rawNumber) {
+          numberInput.focus();
+          return;
+        }
+
+        const finalCode = `${currentUnitLetter}-${rawNumber}`;
+        closeUnitCodeModal(finalCode);
+      });
+
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          closeUnitCodeModal(null);
+        }
+      });
+    }
+
+    function clearCompareFixedOutput() {
+      const wrap = document.getElementById("compareFixedWrap");
+      const output = document.getElementById("compareFixedOutput");
+      wrap.classList.remove("show");
+      output.value = "";
+      document.getElementById("btnCopyCompareFixed").textContent = "📋 نسخ التقرير المصحح";
+    }
+
+    function showCompareFixedOutput(text) {
+      const wrap = document.getElementById("compareFixedWrap");
+      const output = document.getElementById("compareFixedOutput");
+      output.value = text || "";
+      wrap.classList.add("show");
+    }
+
+    function parseReportAll(text) {
+      const lines = (text || "").split(/\r?\n/);
+      let currentSection = null;
+      const map = {};
+      const all = {};
+
+      for (let line of lines) {
+        line = line.trim();
+        if (!line) continue;
+
+        if (line.endsWith(":")) {
+          currentSection = normalizeSection(line.replace(":", ""));
+          continue;
+        }
+
+        const matches = extractUnitsFromLine(line);
+        if (matches.length && currentSection) {
+          matches.forEach(unitFull => {
+            const unit = getUnitCode(unitFull);
+            map[unit] = currentSection;
+            if (!all[unit]) all[unit] = [];
+            all[unit].push(currentSection);
+          });
+        }
+      }
+      return { map, all };
+    }
+
+    function parseReportDetailed(text) {
+      const lines = (text || "").split(/\r?\n/);
+      const sections = [];
+      const preLines = [];
+      const sectionIndexMap = {};
+      let currentSection = null;
+
+      function ensureSection(name) {
+        const normalized = normalizeSection(name);
+        if (!sectionIndexMap.hasOwnProperty(normalized)) {
+          sectionIndexMap[normalized] = sections.length;
+          sections.push({
+            name: normalized,
+            headerLine: name.trim() + ":",
+            parsedItems: []
+          });
+        }
+        return sections[sectionIndexMap[normalized]];
+      }
+
+      for (let rawLine of lines) {
+        const originalLine = rawLine;
+        const line = rawLine.trim();
+
+        if (!line) {
+          if (!currentSection) {
+            preLines.push(originalLine);
+          }
+          continue;
+        }
+
+        if (line.endsWith(":")) {
+          const name = line.slice(0, -1);
+          currentSection = ensureSection(name);
+          continue;
+        }
+
+        if (!currentSection) {
+          preLines.push(originalLine);
+          continue;
+        }
+
+        const rawMatches = line.match(/\b[A-Z]-\d+\b(?:\s*\|\s*<@\d+>)?/g) || [];
+
+        if (rawMatches.length > 0) {
+          currentSection.parsedItems.push({
+            type: "units-line",
+            originalLine: originalLine,
+            realUnits: rawMatches.filter(isRealUnit).map(m => m.trim()),
+            ignoredUnits: rawMatches.filter(isIgnoredUnit).map(m => m.trim())
+          });
+        } else {
+          currentSection.parsedItems.push({
+            type: "text-line",
+            originalLine: originalLine
+          });
+        }
+      }
+
+      return { preLines, sections };
+    }
+
+    function sectionHasRealUnits(section) {
+      return section.parsedItems.some(item => item.type === "units-line" && item.realUnits.length > 0);
+    }
+
+    function rebuildReportFromParsed(parsed) {
+      const lines = [...parsed.preLines];
+
+      while (lines.length > 0 && lines[lines.length - 1].trim() === "") {
+        lines.pop();
+      }
+
+      if (lines.length > 0) {
+        lines.push("");
+      }
+
+      parsed.sections.forEach((section, index) => {
+        lines.push(section.headerLine);
+
+        let wroteSomething = false;
+
+        section.parsedItems.forEach(item => {
+          if (item.type === "text-line") {
+            lines.push(item.originalLine.trim());
+            wroteSomething = true;
+          } else if (item.type === "units-line") {
+            item.realUnits.forEach(unit => {
+              lines.push(unit);
+              wroteSomething = true;
+            });
+          }
+        });
+
+        if (!wroteSomething) {
+          lines.push("E-000");
+        }
+
+        if (index !== parsed.sections.length - 1) {
+          lines.push("");
+        }
+      });
+
+      return lines.join("\n").trim();
+    }
+
+    function compareReports() {
+      clearCompareFixedOutput();
+      const r1 = document.getElementById("report1").value;
+      const r2 = document.getElementById("report2").value;
+      const m1 = parseReportAll(r1).map;
+      const m2 = parseReportAll(r2).map;
+
+      const allowed = [...losSections, ...sandySections];
+      const lines = [];
+
+      for (const unit in m1) {
+        const s1 = normalizeSection(m1[unit]);
+        const s2 = normalizeSection(m2[unit] || "");
+        if (allowed.includes(s1) && s2 && s1 === s2) {
+          lines.push(`- ${unit} بقت بنفس القطاع: ${s1}`);
+        }
+      }
+
+      document.getElementById("compareResult").textContent =
+        lines.length === 0 ? "عاشت ايدك، تقريرك مضبوط ومابي أي غلط!" : "هاي الوحدات بقت بنفس مكانها وما تحركت:\n\n" + lines.join("\n");
+    }
+
+    function findDuplicates() {
+      clearCompareFixedOutput();
+      const parsed = parseReportAll(document.getElementById("report2").value).all;
+      const lines = [];
+
+      for (const unit in parsed) {
+        const sections = parsed[unit].map(normalizeSection);
+        const count = sections.length;
+        const uniqueSections = [...new Set(sections)];
+
+        if (count > 1 && uniqueSections.length === 1) {
+          lines.push(`- ${unit} مكرر ${count} مرات بنفس القطاع: ${uniqueSections[0]}`);
+        } else if (uniqueSections.length > 1) {
+          lines.push(`- ${unit} مكرر بأكثر من قطاع: ${uniqueSections.join(" ، ")}`);
+        }
+      }
+
+      document.getElementById("compareResult").textContent =
+        lines.length === 0 ? "عاشت ايدك، تقريرك مضبوط ومابي أي غلط!" : "الوحدات المكررة بتقرير 2:\n\n" + lines.join("\n");
+    }
+
+    function getLosDistribution(total) {
+      const map = {
+        1:{ "لام 1":0,"لام 2":1,"لام 3":0,"لام 4":0,"لام 5":0,"فرسان":0 },
+        2:{ "لام 1":0,"لام 2":1,"لام 3":0,"لام 4":1,"لام 5":0,"فرسان":0 },
+        3:{ "لام 1":0,"لام 2":1,"لام 3":1,"لام 4":1,"لام 5":0,"فرسان":0 },
+        4:{ "لام 1":1,"لام 2":1,"لام 3":1,"لام 4":1,"لام 5":0,"فرسان":0 },
+        5:{ "لام 1":1,"لام 2":1,"لام 3":1,"لام 4":1,"لام 5":0,"فرسان":1 },
+        6:{ "لام 1":1,"لام 2":2,"لام 3":1,"لام 4":1,"لام 5":0,"فرسان":1 },
+        7:{ "لام 1":1,"لام 2":2,"لام 3":1,"لام 4":2,"لام 5":0,"فرسان":1 },
+        8:{ "لام 1":1,"لام 2":2,"لام 3":2,"لام 4":2,"لام 5":0,"فرسان":1 },
+        9:{ "لام 1":2,"لام 2":2,"لام 3":2,"لام 4":2,"لام 5":0,"فرسان":1 },
+        10:{ "لام 1":2,"لام 2":3,"لام 3":2,"لام 4":2,"لام 5":0,"فرسان":1 },
+        11:{ "لام 1":2,"لام 2":3,"لام 3":2,"لام 4":3,"لام 5":0,"فرسان":1 },
+        12:{ "لام 1":3,"لام 2":3,"لام 3":2,"لام 4":3,"لام 5":0,"فرسان":1 },
+        13:{ "لام 1":3,"لام 2":3,"لام 3":2,"لام 4":3,"لام 5":1,"فرسان":1 },
+        14:{ "لام 1":3,"لام 2":4,"لام 3":2,"لام 4":3,"لام 5":1,"فرسان":1 },
+        15:{ "لام 1":3,"لام 2":4,"لام 3":2,"لام 4":4,"لام 5":1,"فرسان":1 },
+        16:{ "لام 1":3,"لام 2":4,"لام 3":3,"لام 4":4,"لام 5":1,"فرسان":1 },
+        17:{ "لام 1":4,"لام 2":4,"لام 3":3,"لام 4":4,"لام 5":1,"فرسان":1 },
+        18:{ "لام 1":4,"لام 2":4,"لام 3":3,"لام 4":4,"لام 5":1,"فرسان":2 },
+        19:{ "لام 1":4,"لام 2":4,"لام 3":3,"لام 4":4,"لام 5":2,"فرسان":2 },
+        20:{ "لام 1":4,"لام 2":5,"لام 3":3,"لام 4":4,"لام 5":2,"فرسان":2 },
+        21:{ "لام 1":4,"لام 2":5,"لام 3":3,"لام 4":5,"لام 5":2,"فرسان":2 },
+        22:{ "لام 1":4,"لام 2":5,"لام 3":4,"لام 4":5,"لام 5":2,"فرسان":2 },
+        23:{ "لام 1":5,"لام 2":5,"لام 3":4,"لام 4":5,"لام 5":2,"فرسان":2 },
+        24:{ "لام 1":5,"لام 2":5,"لام 3":4,"لام 4":5,"لام 5":2,"فرسان":3 },
+        25:{ "لام 1":5,"لام 2":5,"لام 3":4,"لام 4":5,"لام 5":3,"فرسان":3 },
+        26:{ "لام 1":5,"لام 2":6,"لام 3":4,"لام 4":5,"لام 5":3,"فرسان":3 },
+        27:{ "لام 1":5,"لام 2":6,"لام 3":4,"لام 4":6,"لام 5":3,"فرسان":3 },
+        28:{ "لام 1":5,"لام 2":6,"لام 3":5,"لام 4":6,"لام 5":3,"فرسان":3 },
+        29:{ "لام 1":6,"لام 2":6,"لام 3":5,"لام 4":6,"لام 5":3,"فرسان":3 },
+        30:{ "لام 1":6,"لام 2":6,"لام 3":5,"لام 4":6,"لام 5":3,"فرسان":4 },
+        31:{ "لام 1":6,"لام 2":6,"لام 3":5,"لام 4":6,"لام 5":4,"فرسان":4 },
+        32:{ "لام 1":6,"لام 2":7,"لام 3":5,"لام 4":6,"لام 5":4,"فرسان":4 },
+        33:{ "لام 1":6,"لام 2":7,"لام 3":5,"لام 4":7,"لام 5":4,"فرسان":4 },
+        34:{ "لام 1":6,"لام 2":7,"لام 3":6,"لام 4":7,"لام 5":4,"فرسان":4 },
+        35:{ "لام 1":7,"لام 2":7,"لام 3":6,"لام 4":7,"لام 5":4,"فرسان":4 },
+        36:{ "لام 1":7,"لام 2":7,"لام 3":6,"لام 4":7,"لام 5":4,"فرسان":5 },
+        37:{ "لام 1":7,"لام 2":7,"لام 3":6,"لام 4":7,"لام 5":5,"فرسان":5 },
+        38:{ "لام 1":7,"لام 2":8,"لام 3":6,"لام 4":7,"لام 5":5,"فرسان":5 },
+        39:{ "لام 1":7,"لام 2":8,"لام 3":6,"لام 4":8,"لام 5":5,"فرسان":5 },
+        40:{ "لام 1":7,"لام 2":8,"لام 3":7,"لام 4":8,"لام 5":5,"فرسان":5 },
+        41:{ "لام 1":8,"لام 2":8,"لام 3":7,"لام 4":8,"لام 5":5,"فرسان":5 },
+        42:{ "لام 1":8,"لام 2":8,"لام 3":7,"لام 4":8,"لام 5":5,"فرسان":6 },
+        43:{ "لام 1":8,"لام 2":8,"لام 3":7,"لام 4":8,"لام 5":6,"فرسان":6 },
+        44:{ "لام 1":8,"لام 2":9,"لام 3":7,"لام 4":8,"لام 5":6,"فرسان":6 },
+        45:{ "لام 1":8,"لام 2":9,"لام 3":7,"لام 4":9,"لام 5":6,"فرسان":6 },
+        46:{ "لام 1":8,"لام 2":9,"لام 3":8,"لام 4":9,"لام 5":6,"فرسان":6 },
+        47:{ "لام 1":9,"لام 2":9,"لام 3":8,"لام 4":9,"لام 5":6,"فرسان":6 },
+        48:{ "لام 1":9,"لام 2":9,"لام 3":8,"لام 4":9,"لام 5":6,"فرسان":7 },
+        49:{ "لام 1":9,"لام 2":9,"لام 3":8,"لام 4":9,"لام 5":7,"فرسان":7 },
+        50:{ "لام 1":9,"لام 2":10,"لام 3":8,"لام 4":9,"لام 5":7,"فرسان":7 },
+        51:{ "لام 1":9,"لام 2":10,"لام 3":8,"لام 4":10,"لام 5":7,"فرسان":7 },
+        52:{ "لام 1":9,"لام 2":10,"لام 3":9,"لام 4":10,"لام 5":7,"فرسان":7 },
+      };
+      return map[total] || null;
+    }
+
+    function getSandyDistribution(total) {
+      const map = {
+        1:{ "سين 1":1,"سين":0,"باء 1":0,"باء":0,"جيم 1":0,"جيم 2":0 },
+        2:{ "سين 1":1,"سين":0,"باء 1":1,"باء":0,"جيم 1":0,"جيم 2":0 },
+        3:{ "سين 1":1,"سين":1,"باء 1":1,"باء":0,"جيم 1":0,"جيم 2":0 },
+        4:{ "سين 1":1,"سين":1,"باء 1":1,"باء":0,"جيم 1":1,"جيم 2":0 },
+        5:{ "سين 1":1,"سين":1,"باء 1":1,"باء":1,"جيم 1":1,"جيم 2":0 },
+        6:{ "سين 1":2,"سين":1,"باء 1":1,"باء":1,"جيم 1":1,"جيم 2":0 },
+        7:{ "سين 1":2,"سين":1,"باء 1":2,"باء":1,"جيم 1":1,"جيم 2":0 },
+        8:{ "سين 1":2,"سين":2,"باء 1":2,"باء":1,"جيم 1":1,"جيم 2":0 },
+        9:{ "سين 1":2,"سين":2,"باء 1":2,"باء":1,"جيم 1":2,"جيم 2":0 },
+        10:{ "سين 1":2,"سين":2,"باء 1":2,"باء":2,"جيم 1":2,"جيم 2":0 },
+        11:{ "سين 1":3,"سين":2,"باء 1":2,"باء":2,"جيم 1":2,"جيم 2":0 },
+        12:{ "سين 1":3,"سين":2,"باء 1":3,"باء":2,"جيم 1":2,"جيم 2":0 },
+        13:{ "سين 1":3,"سين":3,"باء 1":3,"باء":2,"جيم 1":2,"جيم 2":0 },
+        14:{ "سين 1":3,"سين":3,"باء 1":3,"باء":2,"جيم 1":3,"جيم 2":0 },
+        15:{ "سين 1":3,"سين":3,"باء 1":3,"باء":3,"جيم 1":3,"جيم 2":0 },
+        16:{ "سين 1":4,"سين":3,"باء 1":3,"باء":3,"جيم 1":3,"جيم 2":0 },
+        17:{ "سين 1":4,"سين":4,"باء 1":3,"باء":3,"جيم 1":3,"جيم 2":0 },
+        18:{ "سين 1":4,"سين":4,"باء 1":3,"باء":4,"جيم 1":3,"جيم 2":0 },
+        19:{ "سين 1":4,"سين":4,"باء 1":3,"باء":4,"جيم 1":3,"جيم 2":1 },
+        20:{ "سين 1":4,"سين":4,"باء 1":3,"باء":4,"جيم 1":3,"جيم 2":2 },
+        21:{ "سين 1":4,"سين":4,"باء 1":3,"باء":4,"جيم 1":3,"جيم 2":3 },
+        22:{ "سين 1":5,"سين":4,"باء 1":3,"باء":4,"جيم 1":3,"جيم 2":3 },
+        23:{ "سين 1":5,"سين":4,"باء 1":4,"باء":4,"جيم 1":3,"جيم 2":3 },
+        24:{ "سين 1":5,"سين":5,"باء 1":4,"باء":4,"جيم 1":3,"جيم 2":3 },
+        25:{ "سين 1":5,"سين":5,"باء 1":4,"باء":4,"جيم 1":4,"جيم 2":3 },
+        26:{ "سين 1":5,"سين":5,"باء 1":4,"باء":5,"جيم 1":4,"جيم 2":3 },
+        27:{ "سين 1":5,"سين":5,"باء 1":4,"باء":5,"جيم 1":4,"جيم 2":4 },
+        28:{ "سين 1":6,"سين":5,"باء 1":4,"باء":5,"جيم 1":4,"جيم 2":4 },
+        29:{ "سين 1":6,"سين":5,"باء 1":5,"باء":5,"جيم 1":4,"جيم 2":4 },
+        30:{ "سين 1":6,"سين":6,"باء 1":5,"باء":5,"جيم 1":4,"جيم 2":4 },
+        31:{ "سين 1":6,"سين":6,"باء 1":5,"باء":5,"جيم 1":5,"جيم 2":4 },
+        32:{ "سين 1":6,"سين":6,"باء 1":5,"باء":6,"جيم 1":5,"جيم 2":4 },
+        33:{ "سين 1":6,"سين":6,"باء 1":5,"باء":6,"جيم 1":5,"جيم 2":5 },
+        34:{ "سين 1":7,"سين":6,"باء 1":5,"باء":6,"جيم 1":5,"جيم 2":5 },
+        35:{ "سين 1":7,"سين":6,"باء 1":6,"باء":6,"جيم 1":5,"جيم 2":5 },
+        36:{ "سين 1":7,"سين":7,"باء 1":6,"باء":6,"جيم 1":5,"جيم 2":5 },
+        37:{ "سين 1":7,"سين":7,"باء 1":6,"باء":6,"جيم 1":6,"جيم 2":5 },
+        38:{ "سين 1":7,"سين":7,"باء 1":6,"باء":7,"جيم 1":6,"جيم 2":5 },
+        39:{ "سين 1":7,"سين":7,"باء 1":6,"باء":7,"جيم 1":6,"جيم 2":6 },
+        40:{ "سين 1":8,"سين":7,"باء 1":6,"باء":7,"جيم 1":6,"جيم 2":6 },
+        41:{ "سين 1":8,"سين":7,"باء 1":7,"باء":7,"جيم 1":6,"جيم 2":6 },
+        42:{ "سين 1":8,"سين":8,"باء 1":7,"باء":7,"جيم 1":6,"جيم 2":6 },
+        43:{ "سين 1":8,"سين":8,"باء 1":7,"باء":7,"جيم 1":7,"جيم 2":6 },
+        44:{ "سين 1":8,"سين":8,"باء 1":7,"باء":8,"جيم 1":7,"جيم 2":6 },
+        45:{ "سين 1":8,"سين":8,"باء 1":7,"باء":8,"جيم 1":7,"جيم 2":7 },
+        46:{ "سين 1":9,"سين":8,"باء 1":7,"باء":8,"جيم 1":7,"جيم 2":7 },
+        47:{ "سين 1":9,"سين":8,"باء 1":8,"باء":8,"جيم 1":7,"جيم 2":7 },
+        48:{ "سين 1":9,"سين":9,"باء 1":8,"باء":8,"جيم 1":7,"جيم 2":7 },
+        49:{ "سين 1":9,"سين":9,"باء 1":8,"باء":8,"جيم 1":8,"جيم 2":7 },
+        50:{ "سين 1":9,"سين":9,"باء 1":8,"باء":9,"جيم 1":8,"جيم 2":7 },
+        51:{ "سين 1":9,"سين":9,"باء 1":8,"باء":9,"جيم 1":8,"جيم 2":8 },
+        52:{ "سين 1":10,"سين":9,"باء 1":8,"باء":9,"جيم 1":8,"جيم 2":8 },
+      };
+      return map[total] || null;
+    }
+
+    function getGroupCountsFromParsed(parsed) {
+      const losCounts = { "لام 1":0,"لام 2":0,"لام 3":0,"لام 4":0,"لام 5":0,"فرسان":0 };
+      const sandyCounts = { "سين 1":0,"سين":0,"باء 1":0,"باء":0,"جيم 1":0,"جيم 2":0 };
+
+      parsed.sections.forEach(section => {
+        if (losSections.includes(section.name)) {
+          section.parsedItems.forEach(item => {
+            if (item.type === "units-line") losCounts[section.name] += item.realUnits.length;
+          });
+        }
+        if (sandySections.includes(section.name)) {
+          section.parsedItems.forEach(item => {
+            if (item.type === "units-line") sandyCounts[section.name] += item.realUnits.length;
+          });
+        }
+      });
+
+      const losTotal = Object.values(losCounts).reduce((a, b) => a + b, 0);
+      const sandyTotal = Object.values(sandyCounts).reduce((a, b) => a + b, 0);
+
+      return { losCounts, sandyCounts, losTotal, sandyTotal };
+    }
+
+    function checkDistributionAll() {
+      clearCompareFixedOutput();
+      const parsed = parseReportDetailed(document.getElementById("report2").value);
+      const { losCounts, sandyCounts, losTotal, sandyTotal } = getGroupCountsFromParsed(parsed);
+      const out = [];
+
+      if (losTotal > 0) {
+        const correctLos = getLosDistribution(losTotal);
+        if (!correctLos) {
+          out.push("عدد وحدات لوس سانتوس مو مدعوم بالجدول.");
+        } else {
+          for (const sec in losCounts) {
+            const diff = losCounts[sec] - correctLos[sec];
+            if (diff > 0) out.push(`- لوس | ${sec}: اكو وحدات زايدة (${diff})`);
+            if (diff < 0) out.push(`- لوس | ${sec}: اكو وحدات ناقصة (${Math.abs(diff)})`);
+          }
+        }
+      }
+
+      if (sandyTotal > 0) {
+        const correctSandy = getSandyDistribution(sandyTotal);
+        if (!correctSandy) {
+          out.push("عدد وحدات ساندي وبوليتو مو مدعوم بالجدول.");
+        } else {
+          for (const sec in sandyCounts) {
+            const diff = sandyCounts[sec] - correctSandy[sec];
+            if (diff > 0) out.push(`- ساندي وبليتو | ${sec}: اكو وحدات زايدة (${diff})`);
+            if (diff < 0) out.push(`- ساندي وبليتو | ${sec}: اكو وحدات ناقصة (${Math.abs(diff)})`);
+          }
+        }
+      }
+
+      document.getElementById("compareResult").textContent =
+        out.length === 0 ? "عاشت ايدك، تقريرك مضبوط ومابي أي غلط!" : "خربطة بتوزيع الوحدات بتقرير 2:\n\n" + out.join("\n");
+    }
+
+    function renderInputs(type) {
+      selectedLocation = type;
+
+      const btnLos = document.getElementById("btnLosWave");
+      const btnSandy = document.getElementById("btnSandyWave");
+      const title = document.getElementById("locationTitle");
+      const container = document.getElementById("inputsContainer");
+      const totalBox = document.getElementById("totalUnits");
+
+      btnLos.classList.remove("active");
+      btnSandy.classList.remove("active");
+
+      let sections = [];
+
+      if (type === "los") {
+        sections = losSections;
+        title.textContent = "الموقع المختار: لوس سانتوس";
+        btnLos.classList.add("active");
+      } else {
+        sections = sandySections;
+        title.textContent = "الموقع المختار: ساندي وبليتو";
+        btnSandy.classList.add("active");
+      }
+
+      container.innerHTML = "";
+      totalBox.style.display = "block";
+
+      sections.forEach(section => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="card-title">${section}</div>
+          <input type="number" min="0" value="0" data-section="${section}">
+        `;
+        container.appendChild(card);
+      });
+
+      updateWaveTotal();
+
+      container.querySelectorAll("input").forEach(input => {
+        input.addEventListener("input", updateWaveTotal);
+      });
+    }
+
+    function updateWaveTotal() {
+      const inputs = document.querySelectorAll("#inputsContainer input");
+      let total = 0;
+
+      inputs.forEach(input => {
+        total += Number(input.value) || 0;
+      });
+
+      document.getElementById("totalUnits").textContent = `إجمالي الوحدات: ${total}`;
+    }
+
+    function checkWaveDistribution() {
+      if (!selectedLocation) {
+        document.getElementById("waveResult").textContent = "اختار الموقع بالبداية بقسم ترتيب الوحدات بالموجة.";
+        return;
+      }
+
+      const inputs = document.querySelectorAll("#inputsContainer input");
+      const actualCounts = {};
+      let total = 0;
+
+      inputs.forEach(input => {
+        const section = input.dataset.section;
+        const value = Number(input.value) || 0;
+        actualCounts[section] = value;
+        total += value;
+      });
+
+      if (total === 0) {
+        document.getElementById("waveResult").textContent = "دخّل أعداد الوحدات بالبداية بقسم ترتيب الوحدات بالموجة.";
+        return;
+      }
+
+      let correctMap = null;
+      let locationName = "";
+
+      if (selectedLocation === "los") {
+        correctMap = getLosDistribution(total);
+        locationName = "لوس سانتوس";
+      } else {
+        correctMap = getSandyDistribution(total);
+        locationName = "ساندي وبليتو";
+      }
+
+      if (!correctMap) {
+        document.getElementById("waveResult").textContent =
+          `عدد الوحدات (${total}) غير مدعوم في جدول ${locationName}.`;
+        return;
+      }
+
+      const out = [];
+
+      for (const sec in actualCounts) {
+        const diff = actualCounts[sec] - correctMap[sec];
+        if (diff > 0) out.push(`- ${sec}: اكو وحدات زايدة (${diff})`);
+        else if (diff < 0) out.push(`- ${sec}: اكو وحدات ناقصة (${Math.abs(diff)})`);
+      }
+
+      document.getElementById("waveResult").textContent =
+        out.length === 0
+          ? `ترتيب الوحدات بالموجة في ${locationName} مضبوط عاشت ايدك!`
+          : `أخطاء ترتيب الوحدات بالموجة في ${locationName}:\n\n` + out.join("\n");
+    }
+
+    function clearWaveSection() {
+      document.getElementById("inputsContainer").innerHTML = "";
+      document.getElementById("locationTitle").textContent = "اختار موقع بالبداية";
+      document.getElementById("totalUnits").style.display = "none";
+      document.getElementById("btnLosWave").classList.remove("active");
+      document.getElementById("btnSandyWave").classList.remove("active");
+      selectedLocation = null;
+      document.getElementById("waveResult").textContent = "تم تصفير قسم فحص الموجة بنجاح.";
+    }
+
+    function buildUnitAssignment(units, countsBySection, originalMap, groupSections) {
+      const totalNeeded = groupSections.reduce((sum, sec) => sum + (countsBySection[sec] || 0), 0);
+      if (units.length !== totalNeeded) return null;
+
+      const orderedUnits = shuffleArray(units).sort((a, b) => {
+        const aForbidden = normalizeSection(originalMap[getUnitCode(a)] || "");
+        const bForbidden = normalizeSection(originalMap[getUnitCode(b)] || "");
+        const aChoices = groupSections.filter(sec => (countsBySection[sec] || 0) > 0 && sec !== aForbidden).length;
+        const bChoices = groupSections.filter(sec => (countsBySection[sec] || 0) > 0 && sec !== bForbidden).length;
+        return aChoices - bChoices;
+      });
+
+      const sectionOrder = shuffleArray(groupSections);
+      const remaining = {};
+      const result = {};
+
+      groupSections.forEach(sec => {
+        remaining[sec] = countsBySection[sec] || 0;
+        result[sec] = [];
+      });
+
+      function backtrack(index) {
+        if (index === orderedUnits.length) return true;
+
+        const unit = orderedUnits[index];
+        const forbidden = normalizeSection(originalMap[getUnitCode(unit)] || "");
+
+        const candidates = sectionOrder
+          .filter(sec => remaining[sec] > 0 && sec !== forbidden)
+          .sort((a, b) => remaining[b] - remaining[a]);
+
+        for (const sec of candidates) {
+          remaining[sec]--;
+          result[sec].push(unit);
+
+          if (backtrack(index + 1)) return true;
+
+          result[sec].pop();
+          remaining[sec]++;
+        }
+
+        return false;
+      }
+
+      return backtrack(0) ? result : null;
+    }
+
+    function rebuildReportWithUpdatedSections(report2Text, assignments) {
+      const parsed = parseReportDetailed(report2Text);
+
+      Object.keys(assignments).forEach(sectionName => {
+        const section = ensureSectionExists(parsed, sectionName);
+        const newUnits = [...assignments[sectionName]];
+
+        section.parsedItems = section.parsedItems.filter(item => item.type !== "units-line");
+
+        newUnits.forEach(unit => {
+          section.parsedItems.push({
+            type: "units-line",
+            originalLine: unit,
+            realUnits: [unit],
+            ignoredUnits: []
+          });
+        });
+      });
+
+      return rebuildReportFromParsed(parsed);
+    }
+
+    function randomizeUnitsAllGroups() {
+      const report1 = document.getElementById("randomReport1").value;
+      const report2 = document.getElementById("randomReport2").value;
+
+      if (!report1.trim() || !report2.trim()) {
+        document.getElementById("randomResult").textContent = "ضع تقرير 1 وتقرير 2 بالبداية حتى نشتغل عليهن.";
+        return;
+      }
+
+      saveHistorySnapshot();
+
+      const originalMap = parseReportAll(report1).map;
+      const parsedReport2 = parseReportDetailed(report2);
+      const sections2 = parsedReport2.sections;
+
+      const counts = {};
+      const unitsByGroup = { los: [], sandy: [] };
+
+      allowedMoveSections.forEach(sec => {
+        counts[sec] = 0;
+      });
+
+      sections2.forEach(section => {
+        const sectionName = section.name;
+
+        if (losSections.includes(sectionName)) {
+          let count = 0;
+          section.parsedItems.forEach(item => {
+            if (item.type === "units-line") {
+              count += item.realUnits.length;
+              item.realUnits.forEach(unit => unitsByGroup.los.push(unit));
+            }
+          });
+          counts[sectionName] = count;
+        } else if (sandySections.includes(sectionName)) {
+          let count = 0;
+          section.parsedItems.forEach(item => {
+            if (item.type === "units-line") {
+              count += item.realUnits.length;
+              item.realUnits.forEach(unit => unitsByGroup.sandy.push(unit));
+            }
+          });
+          counts[sectionName] = count;
+        }
+      });
+
+      const assignments = {};
+
+      if (unitsByGroup.los.length > 0) {
+        const losAssignment = buildUnitAssignment(unitsByGroup.los, counts, originalMap, losSections);
+        if (!losAssignment) {
+          undoStack.pop();
+          updateHistoryButtons();
+          document.getElementById("randomResult").textContent =
+            "ما كدرت أسوي تدوير عشوائي بدون ما يبقون بعض الشباب بنفس أماكنهم من تقرير 1.";
+          return;
+        }
+        Object.keys(losAssignment).forEach(sec => {
+          assignments[sec] = shuffleArray(losAssignment[sec]);
+        });
+      }
+
+      if (unitsByGroup.sandy.length > 0) {
+        const sandyAssignment = buildUnitAssignment(unitsByGroup.sandy, counts, originalMap, sandySections);
+        if (!sandyAssignment) {
+          undoStack.pop();
+          updateHistoryButtons();
+          document.getElementById("randomResult").textContent =
+            "ما كدرت أسوي تدوير عشوائي بدون ما يبقون بعض الشباب بنفس أماكنهم من تقرير 1.";
+          return;
+        }
+        Object.keys(sandyAssignment).forEach(sec => {
+          assignments[sec] = shuffleArray(sandyAssignment[sec]);
+        });
+      }
+
+      if (unitsByGroup.los.length === 0 && unitsByGroup.sandy.length === 0) {
+        undoStack.pop();
+        updateHistoryButtons();
+        document.getElementById("randomResult").textContent =
+          "ماكو وحدات حقيقية بأقسام لوس سانتوس أو ساندي وبليتو بتقرير 2.";
+        return;
+      }
+
+      const newReport2 = rebuildReportWithUpdatedSections(report2, assignments);
+      document.getElementById("randomOutput").value = newReport2;
+      document.getElementById("randomResult").textContent =
+        "تم تدوير وتوزيع الوحدات بنجاح تام، مع الحفاظ على الأعداد ونفس فورمات التقرير.";
+    }
+
+    function detectGroupForLogin(parsed) {
+      const { losTotal, sandyTotal } = getGroupCountsFromParsed(parsed);
+
+      if (losTotal > 0 && sandyTotal === 0) return "los";
+      if (sandyTotal > 0 && losTotal === 0) return "sandy";
+
+      const answer = prompt("اكتب موقع الوحدة الجديدة:\n1 = لوس سانتوس\n2 = ساندي وبليتو");
+      if (!answer) return null;
+
+      const value = answer.trim();
+      if (value === "1") return "los";
+      if (value === "2") return "sandy";
+      if (value.includes("لوس")) return "los";
+      if (value.includes("ساندي")) return "sandy";
+
+      return null;
+    }
+
+    function chooseLoginSection(groupType, currentCounts, newTotal) {
+      const targetMap = groupType === "los" ? getLosDistribution(newTotal) : getSandyDistribution(newTotal);
+      if (!targetMap) return null;
+
+      const sections = groupType === "los" ? losSections : sandySections;
+      let bestSection = null;
+      let bestDiff = -Infinity;
+
+      sections.forEach(sec => {
+        const diff = (targetMap[sec] || 0) - (currentCounts[sec] || 0);
+        if (diff > bestDiff) {
+          bestDiff = diff;
+          bestSection = sec;
+        }
+      });
+
+      return bestSection;
+    }
+
+    function ensureSectionExists(parsed, sectionName) {
+      const normalized = normalizeSection(sectionName);
+      let section = parsed.sections.find(s => s.name === normalized);
+
+      if (!section) {
+        section = {
+          name: normalized,
+          headerLine: normalized + ":",
+          parsedItems: []
+        };
+        parsed.sections.push(section);
+      }
+
+      return section;
+    }
+
+    function removeE000FromSection(section) {
+      section.parsedItems.forEach(item => {
+        if (item.type === "units-line") {
+          item.realUnits = item.realUnits.filter(unit => getUnitCode(unit) !== "E-000");
+        }
+      });
+
+      section.parsedItems = section.parsedItems.filter(item => {
+        if (item.type !== "units-line") return true;
+        return item.realUnits.length > 0;
+      });
+    }
+
+    function addUnitToSection(parsed, sectionName, unitCode) {
+      const section = ensureSectionExists(parsed, sectionName);
+      removeE000FromSection(section);
+
+      section.parsedItems.push({
+        type: "units-line",
+        originalLine: unitCode,
+        realUnits: [unitCode],
+        ignoredUnits: []
+      });
+    }
+
+    function removeUnitFromParsed(parsed, unitCode) {
+      const target = unitCode.trim().toUpperCase();
+
+      for (const section of parsed.sections) {
+        for (let i = 0; i < section.parsedItems.length; i++) {
+          const item = section.parsedItems[i];
+          if (item.type !== "units-line") continue;
+
+          const index = item.realUnits.findIndex(u => getUnitCode(u) === target);
+          if (index !== -1) {
+            item.realUnits.splice(index, 1);
+
+            if (item.realUnits.length === 0) {
+              section.parsedItems.splice(i, 1);
+            }
+
+            return { found: true, fromSection: section.name };
+          }
+        }
+      }
+
+      return { found: false, fromSection: null };
+    }
+
+    function popOneRealUnitFromSection(parsed, sectionName) {
+      const normalized = normalizeSection(sectionName);
+      const section = parsed.sections.find(s => s.name === normalized);
+      if (!section) return null;
+
+      for (let i = section.parsedItems.length - 1; i >= 0; i--) {
+        const item = section.parsedItems[i];
+        if (item.type !== "units-line") continue;
+        if (item.realUnits.length === 0) continue;
+
+        const movedUnit = item.realUnits.pop();
+
+        if (item.realUnits.length === 0) {
+          section.parsedItems.splice(i, 1);
+        }
+
+        return movedUnit;
+      }
+
+      return null;
+    }
+
+    function moveOneUnitBetweenSections(parsed, fromSection, toSection) {
+      const movedUnit = popOneRealUnitFromSection(parsed, fromSection);
+      if (!movedUnit) return null;
+
+      addUnitToSection(parsed, toSection, movedUnit);
+      return movedUnit;
+    }
+
+    function rebalanceAfterLogout(parsed, groupType) {
+      const sections = groupType === "los" ? losSections : sandySections;
+      const countsInfo = getGroupCountsFromParsed(parsed);
+      const currentCounts = groupType === "los" ? countsInfo.losCounts : countsInfo.sandyCounts;
+      const currentTotal = groupType === "los" ? countsInfo.losTotal : countsInfo.sandyTotal;
+      const targetMap = groupType === "los" ? getLosDistribution(currentTotal) : getSandyDistribution(currentTotal);
+
+      if (!targetMap) return [];
+
+      const moves = [];
+      const workingCounts = { ...currentCounts };
+      let safety = 200;
+
+      while (safety-- > 0) {
+        const deficits = sections
+          .map(sec => ({ sec, diff: (targetMap[sec] || 0) - (workingCounts[sec] || 0) }))
+          .filter(x => x.diff > 0)
+          .sort((a, b) => b.diff - a.diff);
+
+        const surpluses = sections
+          .map(sec => ({ sec, diff: (workingCounts[sec] || 0) - (targetMap[sec] || 0) }))
+          .filter(x => x.diff > 0)
+          .sort((a, b) => b.diff - a.diff);
+
+        if (deficits.length === 0 || surpluses.length === 0) break;
+
+        const fromSection = surpluses[0].sec;
+        const toSection = deficits[0].sec;
+        const movedUnit = moveOneUnitBetweenSections(parsed, fromSection, toSection);
+
+        if (!movedUnit) break;
+
+        workingCounts[fromSection]--;
+        workingCounts[toSection]++;
+        moves.push(`- ${movedUnit}: من ${fromSection} لـ ${toSection}`);
+      }
+
+      return moves;
+    }
+
+    async function loginUnitToReport() {
+      const sourceText = document.getElementById("randomReport2").value.trim();
+
+      if (!sourceText) {
+        document.getElementById("randomResult").textContent = "ضع تقرير رقم 2 بالبداية بالقسم الثالث.";
+        return;
+      }
+
+      let unitCode = await openUnitCodeModal("اكتب كود الوحدة اللي تريد تسجلها دخول");
+      if (!unitCode) return;
+
+      unitCode = unitCode.trim().toUpperCase();
+
+      if (!/^[A-Z]-\d+$/.test(unitCode)) {
+        document.getElementById("randomResult").textContent = "كود الوحدة مو صحيح.";
+        return;
+      }
+
+      if (isIgnoredUnit(unitCode)) {
+        document.getElementById("randomResult").textContent = "هذا الكود مو مسموح تستخدمه كوحدة.";
+        return;
+      }
+
+      const parsed = parseReportDetailed(sourceText);
+      const flatMap = parseReportAll(sourceText).map;
+
+      if (flatMap[unitCode]) {
+        document.getElementById("randomResult").textContent = `الوحدة ${unitCode} موجودة من قبل بالتقرير داخل ${flatMap[unitCode]}.`;
+        return;
+      }
+
+      const groupType = detectGroupForLogin(parsed);
+      if (!groupType) {
+        document.getElementById("randomResult").textContent = "ما انحدد موقع الوحدة الجديدة.";
+        return;
+      }
+
+      const { losCounts, sandyCounts, losTotal, sandyTotal } = getGroupCountsFromParsed(parsed);
+
+      let targetSection = null;
+
+      if (groupType === "los") {
+        const newTotal = losTotal + 1;
+        targetSection = chooseLoginSection("los", losCounts, newTotal);
+        if (!targetSection) {
+          document.getElementById("randomResult").textContent = `عدد وحدات لوس سانتوس بعد الدخول (${newTotal}) مو مدعوم بالجدول.`;
+          return;
+        }
+      } else {
+        const newTotal = sandyTotal + 1;
+        targetSection = chooseLoginSection("sandy", sandyCounts, newTotal);
+        if (!targetSection) {
+          document.getElementById("randomResult").textContent = `عدد وحدات ساندي وبليتو بعد الدخول (${newTotal}) مو مدعوم بالجدول.`;
+          return;
+        }
+      }
+
+      saveHistorySnapshot();
+      addUnitToSection(parsed, targetSection, unitCode);
+
+      document.getElementById("randomReport2").value = rebuildReportFromParsed(parsed);
+      document.getElementById("randomResult").textContent =
+        `تم تسجيل دخول الوحدة ${unitCode} بنجاح وتوجيهها لقطاع ${targetSection}.`;
+    }
+
+    async function logoutUnitToReport() {
+      const sourceText = document.getElementById("randomReport2").value.trim();
+
+      if (!sourceText) {
+        document.getElementById("randomResult").textContent = "ضع تقرير رقم 2 بالبداية بالقسم الثالث.";
+        return;
+      }
+
+      let unitCode = await openUnitCodeModal("اكتب كود الوحدة اللي تريد تسجلها خروج");
+      if (!unitCode) return;
+
+      unitCode = unitCode.trim().toUpperCase();
+
+      if (!/^[A-Z]-\d+$/.test(unitCode)) {
+        document.getElementById("randomResult").textContent = "كود الوحدة مو صحيح.";
+        return;
+      }
+
+      const parsed = parseReportDetailed(sourceText);
+      const removeResult = removeUnitFromParsed(parsed, unitCode);
+
+      if (!removeResult.found) {
+        document.getElementById("randomResult").textContent = `ماكو وحدة بهذا الكود ${unitCode} داخل التقرير.`;
+        return;
+      }
+
+      const fromSection = removeResult.fromSection;
+      let groupType = null;
+
+      if (losSections.includes(fromSection)) groupType = "los";
+      if (sandySections.includes(fromSection)) groupType = "sandy";
+
+      saveHistorySnapshot();
+
+      const moves = groupType ? rebalanceAfterLogout(parsed, groupType) : [];
+
+      addUnitToSection(parsed, exitSectionName, unitCode);
+
+      document.getElementById("randomReport2").value = rebuildReportFromParsed(parsed);
+
+      let message = `تم تسجيل خروج الوحدة ${unitCode} من ${fromSection} وتحويلها لقائمة تسجيل خروج.`;
+      if (moves.length > 0) {
+        message += `\n\nتمت إعادة موازنة وتوزيع القطاعات:\n${moves.join("\n")}`;
+      }
+
+      document.getElementById("randomResult").textContent = message;
+    }
+
+    function clearRandomSection() {
+      saveHistorySnapshot();
+
+      document.getElementById("randomReport1").value = "";
+      document.getElementById("randomReport2").value = "";
+      document.getElementById("randomOutput").value = "";
+      document.getElementById("randomResult").textContent = "تم تصفير القسم بنجاح.";
+      document.getElementById("btnCopyReport").textContent = "انسخ التقرير الجديد 📋";
+    }
+
+    function compareReportsCustom(report1Text, report2Text, resultElementId) {
+      const m1 = parseReportAll(report1Text).map;
+      const m2 = parseReportAll(report2Text).map;
+      const allowed = [...losSections, ...sandySections];
+      const lines = [];
+
+      for (const unit in m1) {
+        const s1 = normalizeSection(m1[unit]);
+        const s2 = normalizeSection(m2[unit] || "");
+        if (allowed.includes(s1) && s2 && s1 === s2) {
+          lines.push(`- ${unit} بقت بنفس القطاع: ${s1}`);
+        }
+      }
+
+      document.getElementById(resultElementId).textContent =
+        lines.length === 0 ? "عاشت ايدك، تقريرك مضبوط ومابي أي غلط!" : "هاي الوحدات بقت بنفس مكانها وما تحركت:\n\n" + lines.join("\n");
+    }
+
+    function findDuplicatesCustom(report2Text, resultElementId) {
+      const parsed = parseReportAll(report2Text).all;
+      const lines = [];
+
+      for (const unit in parsed) {
+        const sections = parsed[unit].map(normalizeSection);
+        const count = sections.length;
+        const uniqueSections = [...new Set(sections)];
+
+        if (count > 1 && uniqueSections.length === 1) {
+          lines.push(`- ${unit} مكرر ${count} مرات بنفس القطاع: ${uniqueSections[0]}`);
+        } else if (uniqueSections.length > 1) {
+          lines.push(`- ${unit} مكرر بأكثر من قطاع: ${uniqueSections.join(" ، ")}`);
+        }
+      }
+
+      document.getElementById(resultElementId).textContent =
+        lines.length === 0 ? "عاشت ايدك، تقريرك مضبوط ومابي أي غلط!" : "الوحدات المكررة بتقرير 2:\n\n" + lines.join("\n");
+    }
+
+    function checkDistributionCustom(report2Text, resultElementId) {
+      const parsed = parseReportDetailed(report2Text);
+      const { losCounts, sandyCounts, losTotal, sandyTotal } = getGroupCountsFromParsed(parsed);
+      const out = [];
+
+      if (losTotal > 0) {
+        const correctLos = getLosDistribution(losTotal);
+        if (!correctLos) {
+          out.push("عدد وحدات لوس سانتوس مو مدعوم بالجدول.");
+        } else {
+          for (const sec in losCounts) {
+            const diff = losCounts[sec] - correctLos[sec];
+            if (diff > 0) out.push(`- لوس | ${sec}: اكو وحدات زايدة (${diff})`);
+            if (diff < 0) out.push(`- لوس | ${sec}: اكو وحدات ناقصة (${Math.abs(diff)})`);
+          }
+        }
+      }
+
+      if (sandyTotal > 0) {
+        const correctSandy = getSandyDistribution(sandyTotal);
+        if (!correctSandy) {
+          out.push("عدد وحدات ساندي وبوليتو مو مدعوم بالجدول.");
+        } else {
+          for (const sec in sandyCounts) {
+            const diff = sandyCounts[sec] - correctSandy[sec];
+            if (diff > 0) out.push(`- ساندي وبليتو | ${sec}: اكو وحدات زايدة (${diff})`);
+            if (diff < 0) out.push(`- ساندي وبليتو | ${sec}: اكو وحدات ناقصة (${Math.abs(diff)})`);
+          }
+        }
+      }
+
+      document.getElementById(resultElementId).textContent =
+        out.length === 0 ? "عاشت ايدك، تقريرك مضبوط ومابي أي غلط!" : "خربطة بتوزيع الوحدات بتقرير 2:\n\n" + out.join("\n");
+    }
+
+    function randomCompare() {
+      const report1 = document.getElementById("randomReport1").value.trim();
+      const resultReport = document.getElementById("randomOutput").value.trim();
+
+      if (!report1 || !resultReport) {
+        document.getElementById("randomResult").textContent = "لازم يكون عندك تقرير رقم 1 ونتيجة التدوير بالبداية.";
+        return;
+      }
+
+      compareReportsCustom(report1, resultReport, "randomResult");
+    }
+
+    function randomDup() {
+      const report2 = document.getElementById("randomReport2").value.trim();
+
+      if (!report2) {
+        document.getElementById("randomResult").textContent = "ضع تقرير رقم 2 بالبداية بالقسم الثالث.";
+        return;
+      }
+
+      findDuplicatesCustom(report2, "randomResult");
+    }
+
+    function randomDist() {
+      const report2 = document.getElementById("randomReport2").value.trim();
+
+      if (!report2) {
+        document.getElementById("randomResult").textContent = "ضع تقرير رقم 2 بالبداية بالقسم الثالث.";
+        return;
+      }
+
+      checkDistributionCustom(report2, "randomResult");
+    }
+
+    function listAllUnitOccurrences(parsed) {
+      const map = {};
+
+      parsed.sections.forEach(section => {
+        section.parsedItems.forEach(item => {
+          if (item.type !== "units-line") return;
+          item.realUnits.forEach(unit => {
+            const unitCode = getUnitCode(unit);
+            if (!map[unitCode]) map[unitCode] = [];
+            map[unitCode].push({
+              sectionName: section.name
+            });
+          });
+        });
+      });
+
+      return map;
+    }
+
+    function removeOneUnitFromSpecificSection(parsed, sectionName, unitCode) {
+      const normalizedSection = normalizeSection(sectionName);
+      const targetUnit = unitCode.trim().toUpperCase();
+      const section = parsed.sections.find(s => s.name === normalizedSection);
+      if (!section) return false;
+
+      for (let i = 0; i < section.parsedItems.length; i++) {
+        const item = section.parsedItems[i];
+        if (item.type !== "units-line") continue;
+
+        const unitIndex = item.realUnits.findIndex(u => getUnitCode(u) === targetUnit);
+        if (unitIndex !== -1) {
+          item.realUnits.splice(unitIndex, 1);
+          if (item.realUnits.length === 0) {
+            section.parsedItems.splice(i, 1);
+          }
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    function getCurrentSectionMap(parsed, groupSections) {
+      const output = {};
+      parsed.sections.forEach(section => {
+        if (!groupSections.includes(section.name)) return;
+        section.parsedItems.forEach(item => {
+          if (item.type !== "units-line") return;
+          item.realUnits.forEach(unit => {
+            output[getUnitCode(unit)] = section.name;
+          });
+        });
+      });
+      return output;
+    }
+
+    function getGroupSections(groupType) {
+      return groupType === "los" ? losSections : sandySections;
+    }
+
+    function getGroupTypeForSection(sectionName) {
+      if (losSections.includes(sectionName)) return "los";
+      if (sandySections.includes(sectionName)) return "sandy";
+      return null;
+    }
+
+    function getTargetDistributionForGroup(groupType, total) {
+      return groupType === "los" ? getLosDistribution(total) : getSandyDistribution(total);
+    }
+
+    function isExitSection(sectionName) {
+      const normalized = normalizeSection(sectionName);
+      return normalized === normalizeSection(exitSectionName) || normalized === "تسجيل الخروج";
+    }
+
+    function isOperationsSection(sectionName) {
+      const normalized = normalizeSection(sectionName);
+      if (!normalized) return false;
+
+      return (
+        normalized === "العمليات" ||
+        normalized === "عمليات" ||
+        normalized === "نائب العمليات" ||
+        normalized === "نائب عمليات" ||
+        normalized.includes("نائب العمليات") ||
+        normalized.includes("نائب عمليات") ||
+        /(^|\s)ال?عمليات($|\s)/.test(normalized)
+      );
+    }
+
+    function getUnitsFromMatchingSections(parsed, matcher) {
+      const units = new Set();
+
+      parsed.sections.forEach(section => {
+        if (!matcher(section.name)) return;
+        section.parsedItems.forEach(item => {
+          if (item.type !== "units-line") return;
+          item.realUnits.forEach(unit => units.add(getUnitCode(unit)));
+        });
+      });
+
+      return [...units];
+    }
+
+    function removeAllOccurrencesOfUnit(parsed, unitCode) {
+      const removedSections = [];
+      let safety = 500;
+
+      while (safety-- > 0) {
+        const result = removeUnitFromParsed(parsed, unitCode);
+        if (!result.found) break;
+        removedSections.push(result.fromSection);
+      }
+
+      return removedSections;
+    }
+
+    function getCountsForGroupType(parsed, groupType) {
+      const info = getGroupCountsFromParsed(parsed);
+      return groupType === "los" ? { ...info.losCounts } : { ...info.sandyCounts };
+    }
+
+    function getRealUnitsInSection(parsed, sectionName) {
+      const normalized = normalizeSection(sectionName);
+      const section = parsed.sections.find(s => s.name === normalized);
+      if (!section) return [];
+
+      const units = [];
+      section.parsedItems.forEach(item => {
+        if (item.type !== "units-line") return;
+        item.realUnits.forEach(unit => units.push(getUnitCode(unit)));
+      });
+      return units;
+    }
+
+    function moveSpecificUnitBetweenSections(parsed, fromSection, toSection, unitCode) {
+      const removed = removeOneUnitFromSpecificSection(parsed, fromSection, unitCode);
+      if (!removed) return false;
+      addUnitToSection(parsed, toSection, unitCode);
+      return true;
+    }
+
+    function swapSpecificUnitsBetweenSections(parsed, sectionA, unitA, sectionB, unitB) {
+      if (normalizeSection(sectionA) === normalizeSection(sectionB)) return false;
+
+      const removedA = removeOneUnitFromSpecificSection(parsed, sectionA, unitA);
+      if (!removedA) return false;
+
+      const removedB = removeOneUnitFromSpecificSection(parsed, sectionB, unitB);
+      if (!removedB) {
+        addUnitToSection(parsed, sectionA, unitA);
+        return false;
+      }
+
+      addUnitToSection(parsed, sectionA, unitB);
+      addUnitToSection(parsed, sectionB, unitA);
+      return true;
+    }
+
+    function getSectionNamesForUnit(parsed, unitCode) {
+      const normalizedUnit = unitCode.trim().toUpperCase();
+      const sectionNames = [];
+
+      parsed.sections.forEach(section => {
+        section.parsedItems.forEach(item => {
+          if (item.type !== "units-line") return;
+          item.realUnits.forEach(unit => {
+            if (getUnitCode(unit) === normalizedUnit) {
+              sectionNames.push(normalizeSection(section.name));
+            }
+          });
+        });
+      });
+
+      return sectionNames;
+    }
+
+    function getOperationsSectionLabel(sectionNames) {
+      const normalizedSections = [...new Set(sectionNames.map(normalizeSection).filter(Boolean))];
+      const hasDeputy = normalizedSections.some(sectionName =>
+        sectionName === "نائب العمليات" ||
+        sectionName === "نائب عمليات" ||
+        sectionName.includes("نائب العمليات") ||
+        sectionName.includes("نائب عمليات")
+      );
+      const hasOperations = normalizedSections.some(sectionName =>
+        sectionName === "العمليات" ||
+        sectionName === "عمليات" ||
+        /^ال?عمليات$/.test(sectionName) ||
+        ((/(^|\s)ال?عمليات($|\s)/.test(sectionName)) && !sectionName.includes("نائب"))
+      );
+
+      if (hasOperations && hasDeputy) return "العمليات ونائب العمليات";
+      if (hasDeputy) return "نائب العمليات";
+      return "العمليات";
+    }
+
+    function hasAllowedOperationsDuplicate(sectionNames) {
+      const uniqueSections = [...new Set(sectionNames.map(normalizeSection).filter(Boolean))];
+      return uniqueSections.length > 1 && uniqueSections.some(sectionName => isOperationsSection(sectionName));
+    }
+
+    function buildOperationsDuplicateNote(unitCode, sectionNames) {
+      const uniqueSections = [...new Set(sectionNames.map(normalizeSection).filter(Boolean))];
+      const label = getOperationsSectionLabel(uniqueSections);
+      return `ملاحظة: ${unitCode} مكرر من ${label} في: ${uniqueSections.join(" ، ")}.`;
+    }
+
+    function chooseBestKeepSectionForDuplicate(parsed, sectionNames) {
+      const normalizedSections = sectionNames.map(normalizeSection);
+      const uniqueSections = [...new Set(normalizedSections)];
+
+      const exitSection = uniqueSections.find(sectionName => isExitSection(sectionName));
+      if (exitSection) {
+        return exitSection;
+      }
+
+      const operationsSections = uniqueSections.filter(sectionName => isOperationsSection(sectionName));
+      const nonOperationsSections = uniqueSections.filter(sectionName => !isOperationsSection(sectionName));
+      const candidateSections = operationsSections.length > 0 && nonOperationsSections.length > 0
+        ? nonOperationsSections
+        : uniqueSections;
+
+      const groupedSections = candidateSections.filter(sectionName => allowedMoveSections.includes(sectionName));
+      const groupTypes = [...new Set(groupedSections.map(getGroupTypeForSection).filter(Boolean))];
+
+      if (groupTypes.length !== 1 || groupedSections.length === 0 || groupedSections.length !== candidateSections.length) {
+        return candidateSections[0];
+      }
+
+      const groupType = groupTypes[0];
+      const groupSections = getGroupSections(groupType);
+      const currentCounts = getCountsForGroupType(parsed, groupType);
+      const totalBefore = Object.values(currentCounts).reduce((a, b) => a + b, 0);
+      const duplicateCountInsideGroup = normalizedSections.filter(sectionName => groupSections.includes(sectionName)).length;
+      const totalAfter = totalBefore - duplicateCountInsideGroup + 1;
+      const targetMap = getTargetDistributionForGroup(groupType, totalAfter) || getTargetDistributionForGroup(groupType, totalBefore);
+      const countsBySection = {};
+
+      normalizedSections.forEach(sectionName => {
+        countsBySection[sectionName] = (countsBySection[sectionName] || 0) + 1;
+      });
+
+      let bestSection = candidateSections[0];
+      let bestDeviation = Infinity;
+      let bestNeed = -Infinity;
+
+      candidateSections.forEach(candidateSection => {
+        const simulatedCounts = { ...currentCounts };
+
+        Object.keys(countsBySection).forEach(sectionName => {
+          if (!simulatedCounts.hasOwnProperty(sectionName)) return;
+          simulatedCounts[sectionName] -= countsBySection[sectionName] || 0;
+        });
+
+        if (simulatedCounts.hasOwnProperty(candidateSection)) {
+          simulatedCounts[candidateSection] += 1;
+        }
+
+        let deviation = 0;
+        let needScore = 0;
+
+        if (targetMap) {
+          groupSections.forEach(sectionName => {
+            deviation += Math.abs((simulatedCounts[sectionName] || 0) - (targetMap[sectionName] || 0));
+          });
+          needScore = (targetMap[candidateSection] || 0) - (currentCounts[candidateSection] || 0);
+        }
+
+        if (
+          deviation < bestDeviation ||
+          (deviation === bestDeviation && needScore > bestNeed) ||
+          (deviation === bestDeviation && needScore === bestNeed && (currentCounts[candidateSection] || 0) < (currentCounts[bestSection] || 0))
+        ) {
+          bestDeviation = deviation;
+          bestNeed = needScore;
+          bestSection = candidateSection;
+        }
+      });
+
+      return bestSection;
+    }
+
+    function fixDuplicatesWithPriority(parsed) {
+      const removalLogs = [];
+      const noteLogs = [];
+      let didWork = false;
+      const units = Object.keys(listAllUnitOccurrences(parsed));
+
+      units.forEach(unitCode => {
+        let sectionNames = getSectionNamesForUnit(parsed, unitCode);
+        if (sectionNames.length <= 1) return;
+
+        const countsBySection = {};
+        sectionNames.forEach(sectionName => {
+          countsBySection[sectionName] = (countsBySection[sectionName] || 0) + 1;
+        });
+
+        Object.keys(countsBySection).forEach(sectionName => {
+          let removeCount = countsBySection[sectionName] - 1;
+
+          while (removeCount > 0) {
+            const removed = removeOneUnitFromSpecificSection(parsed, sectionName, unitCode);
+            if (!removed) break;
+            didWork = true;
+            removeCount--;
+            removalLogs.push(`تم حذف نسخة زايدة من ${unitCode} داخل ${sectionName}.`);
+          }
+        });
+
+        sectionNames = getSectionNamesForUnit(parsed, unitCode);
+        if (sectionNames.length <= 1) return;
+
+        if (hasAllowedOperationsDuplicate(sectionNames)) {
+          const nonOperationsSectionNames = sectionNames.filter(sectionName => !isOperationsSection(sectionName));
+
+          if (nonOperationsSectionNames.length > 1) {
+            const keepSection = chooseBestKeepSectionForDuplicate(parsed, nonOperationsSectionNames);
+            const nonCountsBySection = {};
+
+            nonOperationsSectionNames.forEach(sectionName => {
+              nonCountsBySection[sectionName] = (nonCountsBySection[sectionName] || 0) + 1;
+            });
+
+            Object.keys(nonCountsBySection).forEach(sectionName => {
+              const keepCount = sectionName === keepSection ? 1 : 0;
+              let removeCount = nonCountsBySection[sectionName] - keepCount;
+
+              while (removeCount > 0) {
+                const removed = removeOneUnitFromSpecificSection(parsed, sectionName, unitCode);
+                if (!removed) break;
+                didWork = true;
+                removeCount--;
+
+                if (sectionName === keepSection) {
+                  removalLogs.push(`تم حذف نسخة زايدة من ${unitCode} داخل ${sectionName}.`);
+                } else if (isExitSection(keepSection)) {
+                  removalLogs.push(`تم حذف الوحدة المكررة ${unitCode} من ${sectionName} لأنها موجودة أيضًا في ${exitSectionName}.`);
+                } else {
+                  removalLogs.push(`تم حذف الوحدة المكررة ${unitCode} من ${sectionName} مع الإبقاء عليها في ${keepSection}.`);
+                }
+              }
+            });
+          }
+
+          sectionNames = getSectionNamesForUnit(parsed, unitCode);
+          if (hasAllowedOperationsDuplicate(sectionNames)) {
+            noteLogs.push(buildOperationsDuplicateNote(unitCode, sectionNames));
+            didWork = true;
+          }
+          return;
+        }
+
+        const keepSection = chooseBestKeepSectionForDuplicate(parsed, sectionNames);
+        const refreshedCountsBySection = {};
+
+        sectionNames.forEach(sectionName => {
+          refreshedCountsBySection[sectionName] = (refreshedCountsBySection[sectionName] || 0) + 1;
+        });
+
+        Object.keys(refreshedCountsBySection).forEach(sectionName => {
+          const keepCount = sectionName === keepSection ? 1 : 0;
+          let removeCount = refreshedCountsBySection[sectionName] - keepCount;
+
+          while (removeCount > 0) {
+            const removed = removeOneUnitFromSpecificSection(parsed, sectionName, unitCode);
+            if (!removed) break;
+            didWork = true;
+            removeCount--;
+
+            if (sectionName === keepSection) {
+              removalLogs.push(`تم حذف نسخة زايدة من ${unitCode} داخل ${sectionName}.`);
+            } else if (isExitSection(keepSection)) {
+              removalLogs.push(`تم حذف الوحدة المكررة ${unitCode} من ${sectionName} لأنها موجودة أيضًا في ${exitSectionName}.`);
+            } else {
+              removalLogs.push(`تم حذف الوحدة المكررة ${unitCode} من ${sectionName} مع الإبقاء عليها في ${keepSection}.`);
+            }
+          }
+        });
+      });
+
+      return { removalLogs, noteLogs, didWork };
+    }
+
+    function chooseUnitToMoveFromSection(parsed, fromSection, toSection, originalMap) {
+      const units = getRealUnitsInSection(parsed, fromSection);
+      if (units.length === 0) return null;
+
+      const preferred = units.find(unitCode => normalizeSection(originalMap[unitCode] || "") !== normalizeSection(toSection));
+      return preferred || units[units.length - 1] || null;
+    }
+
+    function rebalanceGroupSmart(parsed, groupType, originalMap) {
+      const logs = [];
+      const groupSections = getGroupSections(groupType);
+      const currentCounts = getCountsForGroupType(parsed, groupType);
+      const currentTotal = Object.values(currentCounts).reduce((a, b) => a + b, 0);
+      const targetMap = getTargetDistributionForGroup(groupType, currentTotal);
+
+      if (!targetMap) {
+        if (currentTotal > 0) {
+          logs.push(`عدد وحدات ${groupType === "los" ? "لوس سانتوس" : "ساندي وبليتو"} مو مدعوم بالجدول.`);
+        }
+        return logs;
+      }
+
+      let safety = 200;
+      while (safety-- > 0) {
+        const deficits = groupSections
+          .map(sectionName => ({
+            sectionName,
+            diff: (targetMap[sectionName] || 0) - (currentCounts[sectionName] || 0)
+          }))
+          .filter(item => item.diff > 0)
+          .sort((a, b) => b.diff - a.diff);
+
+        const surpluses = groupSections
+          .map(sectionName => ({
+            sectionName,
+            diff: (currentCounts[sectionName] || 0) - (targetMap[sectionName] || 0)
+          }))
+          .filter(item => item.diff > 0)
+          .sort((a, b) => b.diff - a.diff);
+
+        if (deficits.length === 0 || surpluses.length === 0) break;
+
+        const targetSection = deficits[0].sectionName;
+        const sourceSection = surpluses[0].sectionName;
+        const unitToMove = chooseUnitToMoveFromSection(parsed, sourceSection, targetSection, originalMap);
+
+        if (!unitToMove) break;
+
+        const moved = moveSpecificUnitBetweenSections(parsed, sourceSection, targetSection, unitToMove);
+        if (!moved) break;
+
+        currentCounts[sourceSection]--;
+        currentCounts[targetSection]++;
+        logs.push(`- ${unitToMove}: من ${sourceSection} لـ ${targetSection}`);
+      }
+
+      return logs;
+    }
+
+    function swapRemainingUnchangedUnitsInGroup(parsed, groupType, originalMap) {
+      const logs = [];
+      const groupSections = getGroupSections(groupType);
+      let safety = 200;
+      let progress = true;
+
+      while (progress && safety-- > 0) {
+        progress = false;
+        const currentMap = getCurrentSectionMap(parsed, groupSections);
+        const stuckUnits = Object.keys(currentMap).filter(unitCode => {
+          const currentSection = normalizeSection(currentMap[unitCode] || "");
+          const oldSection = normalizeSection(originalMap[unitCode] || "");
+          return currentSection && oldSection && currentSection === oldSection;
+        });
+
+        for (const unitA of stuckUnits) {
+          const sectionA = normalizeSection(currentMap[unitA] || "");
+          if (!sectionA) continue;
+
+          let bestCandidate = null;
+
+          groupSections.forEach(sectionB => {
+            if (sectionB === sectionA) return;
+
+            const unitsB = getRealUnitsInSection(parsed, sectionB);
+            unitsB.forEach(unitB => {
+              if (unitB === unitA) return;
+              const oldSectionB = normalizeSection(originalMap[unitB] || "");
+              const currentSectionB = normalizeSection(currentMap[unitB] || sectionB);
+              if (oldSectionB === sectionA) return;
+
+              const score = oldSectionB && oldSectionB === currentSectionB ? 2 : 1;
+              if (!bestCandidate || score > bestCandidate.score) {
+                bestCandidate = { unitB, sectionB, score };
+              }
+            });
+          });
+
+          if (!bestCandidate) continue;
+
+          const swapped = swapSpecificUnitsBetweenSections(parsed, sectionA, unitA, bestCandidate.sectionB, bestCandidate.unitB);
+          if (!swapped) continue;
+
+          logs.push(`- ${unitA} ↔ ${bestCandidate.unitB} (${sectionA} ⇄ ${bestCandidate.sectionB})`);
+          progress = true;
+          break;
+        }
+      }
+
+      return logs;
+    }
+
+    function autoFixReport() {
+      const report1 = document.getElementById("report1").value.trim();
+      const report2 = document.getElementById("report2").value.trim();
+
+      if (!report1 || !report2) {
+        clearCompareFixedOutput();
+        document.getElementById("compareResult").textContent = "ضع تقرير 1 وتقرير 2 بالبداية حتى نشتغل عليهن.";
+        return;
+      }
+
+      const report1Parsed = parseReportDetailed(report1);
+      const originalMap = parseReportAll(report1).map;
+      const parsed = parseReportDetailed(report2);
+      const logs = ["عاشت ايدك، تقريرك مضبوط بعد التصحيح!"];
+      let didWork = false;
+
+      const report1ExitUnits = getUnitsFromMatchingSections(report1Parsed, isExitSection);
+      const removedBecauseExited = [];
+
+      report1ExitUnits.forEach(unitCode => {
+        const removedSections = removeAllOccurrencesOfUnit(parsed, unitCode);
+        if (removedSections.length === 0) return;
+
+        didWork = true;
+        removedBecauseExited.push({
+          unitCode,
+          sections: [...new Set(removedSections.map(normalizeSection))]
+        });
+      });
+
+      if (removedBecauseExited.length > 0) {
+        logs.push("", "تم حذف الوحدات اللي مسجلة خروج بتقرير 1 من التقرير الجديد:");
+        removedBecauseExited.forEach(item => {
+          logs.push(`- ${item.unitCode}: تم حذفها من ${item.sections.join(" ، ")} لأنها مسجلة خروج بتقرير 1.`);
+        });
+      }
+
+      const duplicateResult = fixDuplicatesWithPriority(parsed);
+      if (duplicateResult.removalLogs.length > 0) {
+        didWork = true;
+        logs.push("", "تم حذف النسخ المكررة:");
+        duplicateResult.removalLogs.forEach(line => logs.push(`- ${line.replace(/^-\s*/, "")}`));
+      }
+
+      if (duplicateResult.noteLogs.length > 0) {
+        didWork = true;
+        logs.push("", "ملاحظات العمليات ونائب العمليات:");
+        duplicateResult.noteLogs.forEach(line => logs.push(`- ${line.replace(/^-\s*/, "")}`));
+      }
+
+      const losRebalanceLogs = rebalanceGroupSmart(parsed, "los", originalMap);
+      if (losRebalanceLogs.length > 0) {
+        didWork = true;
+        logs.push("", "تمت إعادة موازنة وتوزيع القطاعات (لوس سانتوس):");
+        losRebalanceLogs.forEach(line => logs.push(line));
+      }
+
+      const sandyRebalanceLogs = rebalanceGroupSmart(parsed, "sandy", originalMap);
+      if (sandyRebalanceLogs.length > 0) {
+        didWork = true;
+        logs.push("", "تمت إعادة موازنة وتوزيع القطاعات (ساندي وبليتو):");
+        sandyRebalanceLogs.forEach(line => logs.push(line));
+      }
+
+      const losSwapLogs = swapRemainingUnchangedUnitsInGroup(parsed, "los", originalMap);
+      if (losSwapLogs.length > 0) {
+        didWork = true;
+        logs.push("", "تم تبديل وتدوير الوحدات اللي بقت بنفس مكانها القديم (لوس سانتوس):");
+        losSwapLogs.forEach(line => logs.push(line));
+      }
+
+      const sandySwapLogs = swapRemainingUnchangedUnitsInGroup(parsed, "sandy", originalMap);
+      if (sandySwapLogs.length > 0) {
+        didWork = true;
+        logs.push("", "تم تبديل وتدوير الوحدات اللي بقت بنفس مكانها القديم (ساندي وبليتو):");
+        sandySwapLogs.forEach(line => logs.push(line));
+      }
+
+      const fixedReport = rebuildReportFromParsed(parsed);
+      const finalDuplicates = [];
+      const finalAll = parseReportAll(fixedReport).all;
+      Object.keys(finalAll).forEach(unitCode => {
+        if (finalAll[unitCode].length <= 1) return;
+
+        const uniqueSections = [...new Set(finalAll[unitCode].map(normalizeSection).filter(Boolean))];
+        if (hasAllowedOperationsDuplicate(uniqueSections)) return;
+
+        finalDuplicates.push(`${unitCode} في ${finalAll[unitCode].join(" ، ")}`);
+      });
+
+      if (finalDuplicates.length > 0) {
+        logs.push("", "انتبه: لسه اكو تكرار بعد التصحيح:");
+        finalDuplicates.forEach(line => logs.push(`- ${line}`));
+      }
+
+      const unchangedLines = [];
+      const finalMap = parseReportAll(fixedReport).map;
+      Object.keys(originalMap).forEach(unitCode => {
+        const s1 = normalizeSection(originalMap[unitCode]);
+        const s2 = normalizeSection(finalMap[unitCode] || "");
+        if (allowedMoveSections.includes(s1) && s1 && s1 === s2) {
+          unchangedLines.push(`- ${unitCode} بقت بنفس القطاع: ${s1}`);
+        }
+      });
+
+      if (unchangedLines.length > 0) {
+        logs.push("", "انتبه: لسه اكو وحدات بنفس مكانها بعد التصحيح:");
+        unchangedLines.forEach(line => logs.push(line));
+      }
+
+      if (!didWork && finalDuplicates.length === 0 && unchangedLines.length === 0) {
+        logs.push("", "التقرير ما يحتاج أي تعديل إضافي.");
+      }
+
+      showCompareFixedOutput(rebuildReportFromParsed(parsed));
+      document.getElementById("compareResult").textContent = logs.join("\n");
+    }
+
+    function copyTextareaValue(textareaId, buttonId, successText, emptyText) {
+      return async () => {
+        const text = document.getElementById(textareaId).value;
+        const btn = document.getElementById(buttonId);
+
+        if (!text.trim()) {
+          alert(emptyText || "ماكو أي تقرير موجود حتى ننسخه!");
+          return;
+        }
+
+        contextMenuInternalClipboard = text;
+
+        try {
+          await navigator.clipboard.writeText(text);
+          btn.textContent = successText || "تم النسخ بنجاح عاشت ايدك ✅";
+          setTimeout(() => {
+            btn.textContent = buttonId === "btnCopyCompareFixed" ? "📋 نسخ التقرير المصحح" : "انسخ التقرير الجديد 📋";
+          }, 2000);
+        } catch (error) {
+          const textarea = document.getElementById(textareaId);
+          textarea.select();
+          textarea.setSelectionRange(0, 999999);
+          document.execCommand("copy");
+          btn.textContent = successText || "تم النسخ بنجاح عاشت ايدك ✅";
+          setTimeout(() => {
+            btn.textContent = buttonId === "btnCopyCompareFixed" ? "📋 نسخ التقرير المصحح" : "انسخ التقرير الجديد 📋";
+          }, 2000);
+        }
+      };
+    }
+
+
+    /* custom context menu script start */
+    let contextMenuTarget = null;
+    let contextMenuCopyText = "";
+    let contextMenuInternalClipboard = "";
+
+    function isEditableField(element) {
+      if (!element) return false;
+      if (element.isContentEditable) return true;
+      const tag = (element.tagName || "").toUpperCase();
+      if (tag === "TEXTAREA") return true;
+      if (tag !== "INPUT") return false;
+      const type = (element.type || "text").toLowerCase();
+      return !["button", "checkbox", "radio", "file", "submit", "reset", "range", "color", "image"].includes(type);
+    }
+
+    function resolveEditableTarget(element) {
+      if (!element) return null;
+      if (isEditableField(element)) return element;
+      return element.closest ? element.closest("textarea, input, [contenteditable='true']") : null;
+    }
+
+    function focusContextEditableTarget() {
+      const field = resolveEditableTarget(contextMenuTarget);
+      if (field && typeof field.focus === "function") {
+        try {
+          field.focus({ preventScroll: true });
+        } catch (error) {
+          field.focus();
+        }
+      }
+      return field;
+    }
+
+    function getCopyTextForTarget(target) {
+      const windowSelection = typeof window.getSelection === "function" ? String(window.getSelection()).trim() : "";
+      if (windowSelection) return windowSelection;
+
+      const field = resolveEditableTarget(target);
+      if (!field) return "";
+
+      if (typeof field.selectionStart === "number" && typeof field.selectionEnd === "number") {
+        const start = field.selectionStart;
+        const end = field.selectionEnd;
+        if (end > start) {
+          return String(field.value || "").slice(start, end).trim();
+        }
+      }
+
+      if (typeof field.value === "string") {
+        return field.value.trim();
+      }
+
+      return String(field.innerText || field.textContent || "").trim();
+    }
+
+    async function copyPlainText(text) {
+      if (!text) return false;
+
+      contextMenuInternalClipboard = text;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        helper.setAttribute("readonly", "readonly");
+        helper.style.position = "fixed";
+        helper.style.opacity = "0";
+        helper.style.pointerEvents = "none";
+        helper.style.inset = "0";
+        document.body.appendChild(helper);
+        helper.select();
+        helper.setSelectionRange(0, helper.value.length);
+        const didCopy = document.execCommand("copy");
+        document.body.removeChild(helper);
+        return didCopy;
+      }
+    }
+
+    function runNativeEditCommand(commandName) {
+      const field = focusContextEditableTarget();
+      if (!field) return false;
+
+      try {
+        return document.execCommand(commandName);
+      } catch (error) {
+        return false;
+      }
+    }
+
+    function pasteTextIntoField(field, text) {
+      if (!field || !text) return false;
+
+      if (field.isContentEditable) {
+        try {
+          field.focus({ preventScroll: true });
+        } catch (error) {
+          field.focus();
+        }
+
+        const selection = window.getSelection ? window.getSelection() : null;
+        if (selection && selection.rangeCount > 0) {
+          const range = selection.getRangeAt(0);
+          range.deleteContents();
+          const textNode = document.createTextNode(text);
+          range.insertNode(textNode);
+          range.setStartAfter(textNode);
+          range.collapse(true);
+          selection.removeAllRanges();
+          selection.addRange(range);
+          field.dispatchEvent(new Event("input", { bubbles: true }));
+          return true;
+        }
+
+        try {
+          const didInsert = document.execCommand("insertText", false, text);
+          if (didInsert) {
+            field.dispatchEvent(new Event("input", { bubbles: true }));
+            return true;
+          }
+        } catch (error) {}
+
+        field.textContent = (field.textContent || "") + text;
+        field.dispatchEvent(new Event("input", { bubbles: true }));
+        return true;
+      }
+
+      if (typeof field.focus === "function") {
+        try {
+          field.focus({ preventScroll: true });
+        } catch (error) {
+          field.focus();
+        }
+      }
+
+      if (
+        typeof field.setRangeText === "function" &&
+        typeof field.selectionStart === "number" &&
+        typeof field.selectionEnd === "number"
+      ) {
+        const start = field.selectionStart;
+        const end = field.selectionEnd;
+        field.setRangeText(text, start, end, "end");
+        field.dispatchEvent(new Event("input", { bubbles: true }));
+        return true;
+      }
+
+      try {
+        const didInsert = document.execCommand("insertText", false, text);
+        if (didInsert) {
+          field.dispatchEvent(new Event("input", { bubbles: true }));
+          return true;
+        }
+      } catch (error) {}
+
+      if (typeof field.value === "string") {
+        const start = typeof field.selectionStart === "number" ? field.selectionStart : field.value.length;
+        const end = typeof field.selectionEnd === "number" ? field.selectionEnd : field.value.length;
+        const nextValue = field.value.slice(0, start) + text + field.value.slice(end);
+        field.value = nextValue;
+        const caret = start + text.length;
+        if (typeof field.setSelectionRange === "function") {
+          field.setSelectionRange(caret, caret);
+        }
+        field.dispatchEvent(new Event("input", { bubbles: true }));
+        return true;
+      }
+
+      return false;
+    }
+
+    async function getPasteTextForContextMenu() {
+      if (navigator.clipboard && typeof navigator.clipboard.readText === "function") {
+        try {
+          const clipboardText = await navigator.clipboard.readText();
+          if (clipboardText) {
+            contextMenuInternalClipboard = clipboardText;
+            return clipboardText;
+          }
+        } catch (error) {}
+      }
+
+      return contextMenuInternalClipboard || "";
+    }
+
+    function canPasteFromContextMenu() {
+      return !!resolveEditableTarget(contextMenuTarget);
+    }
+
+    function canUndoFromContextMenu() {
+      return !!resolveEditableTarget(contextMenuTarget) || undoStack.length > 0;
+    }
+
+    function canRedoFromContextMenu() {
+      return !!resolveEditableTarget(contextMenuTarget) || redoStack.length > 0;
+    }
+
+    function hideCustomContextMenu() {
+      const menu = document.getElementById("customContextMenu");
+      if (!menu) return;
+      menu.classList.remove("show");
+      menu.style.left = "0px";
+      menu.style.top = "0px";
+    }
+
+    function updateCustomContextMenuState() {
+      const copyBtn = document.getElementById("ctxCopy");
+      const pasteBtn = document.getElementById("ctxPaste");
+      const undoBtn = document.getElementById("ctxUndo");
+      const redoBtn = document.getElementById("ctxRedo");
+
+      contextMenuCopyText = getCopyTextForTarget(contextMenuTarget);
+
+      if (copyBtn) copyBtn.disabled = !contextMenuCopyText;
+      if (pasteBtn) pasteBtn.disabled = !canPasteFromContextMenu();
+      if (undoBtn) undoBtn.disabled = !canUndoFromContextMenu();
+      if (redoBtn) redoBtn.disabled = !canRedoFromContextMenu();
+    }
+
+    function positionCustomContextMenu(x, y) {
+      const menu = document.getElementById("customContextMenu");
+      if (!menu) return;
+
+      menu.style.left = "0px";
+      menu.style.top = "0px";
+      menu.classList.add("show");
+
+      const rect = menu.getBoundingClientRect();
+      const padding = 12;
+      const maxLeft = Math.max(padding, window.innerWidth - rect.width - padding);
+      const maxTop = Math.max(padding, window.innerHeight - rect.height - padding);
+
+      const nextLeft = Math.min(Math.max(padding, x), maxLeft);
+      const nextTop = Math.min(Math.max(padding, y), maxTop);
+
+      menu.style.left = nextLeft + "px";
+      menu.style.top = nextTop + "px";
+    }
+
+    async function handleContextCopy() {
+      if (!contextMenuCopyText) {
+        hideCustomContextMenu();
+        return;
+      }
+
+      await copyPlainText(contextMenuCopyText);
+      hideCustomContextMenu();
+    }
+
+    async function handleContextPaste() {
+      const field = focusContextEditableTarget();
+      if (!field) {
+        hideCustomContextMenu();
+        return;
+      }
+
+      const pasteText = await getPasteTextForContextMenu();
+      if (!pasteText) {
+        hideCustomContextMenu();
+        return;
+      }
+
+      pasteTextIntoField(field, pasteText);
+      hideCustomContextMenu();
+    }
+
+    function handleContextUndo() {
+      const didNativeUndo = runNativeEditCommand("undo");
+      if (!didNativeUndo && undoStack.length > 0) {
+        undoLastAction();
+      }
+      hideCustomContextMenu();
+    }
+
+    function handleContextRedo() {
+      const didNativeRedo = runNativeEditCommand("redo");
+      if (!didNativeRedo && redoStack.length > 0) {
+        redoLastAction();
+      }
+      hideCustomContextMenu();
+    }
+
+    function handleContextReload() {
+      hideCustomContextMenu();
+      window.location.reload();
+    }
+
+    function initCustomContextMenu() {
+      const menu = document.getElementById("customContextMenu");
+      if (!menu) return;
+
+      const copyBtn = document.getElementById("ctxCopy");
+      const pasteBtn = document.getElementById("ctxPaste");
+      const undoBtn = document.getElementById("ctxUndo");
+      const redoBtn = document.getElementById("ctxRedo");
+      const reloadBtn = document.getElementById("ctxReload");
+
+      copyBtn.addEventListener("click", handleContextCopy);
+      pasteBtn.addEventListener("click", handleContextPaste);
+      undoBtn.addEventListener("click", handleContextUndo);
+      redoBtn.addEventListener("click", handleContextRedo);
+      reloadBtn.addEventListener("click", handleContextReload);
+
+      menu.addEventListener("contextmenu", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+      });
+
+      document.addEventListener("contextmenu", (event) => {
+        if (menu.contains(event.target)) {
+          event.preventDefault();
+          return;
+        }
+
+        event.preventDefault();
+        contextMenuTarget = event.target;
+
+        const editableTarget = resolveEditableTarget(event.target);
+        if (editableTarget) {
+          try {
+            editableTarget.focus({ preventScroll: true });
+          } catch (error) {
+            editableTarget.focus();
+          }
+        }
+
+        updateCustomContextMenuState();
+        positionCustomContextMenu(event.clientX, event.clientY);
+      });
+
+      document.addEventListener("pointerdown", (event) => {
+        if (!menu.classList.contains("show")) return;
+        if (menu.contains(event.target)) return;
+        hideCustomContextMenu();
+      });
+
+      document.addEventListener("scroll", () => {
+        if (menu.classList.contains("show")) {
+          hideCustomContextMenu();
+        }
+      }, true);
+
+      window.addEventListener("resize", hideCustomContextMenu);
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          hideCustomContextMenu();
+        }
+      });
+    }
+    /* custom context menu script end */
+
+
+    document.getElementById("btnCompare").onclick = compareReports;
+    document.getElementById("btnDup").onclick = findDuplicates;
+    document.getElementById("btnDist").onclick = checkDistributionAll;
+    document.getElementById("btnFixReport").onclick = autoFixReport;
+
+    document.getElementById("btnClear1").onclick = () => {
+      clearCompareFixedOutput();
+      document.getElementById("report1").value = "";
+      document.getElementById("compareResult").textContent = "تم تصفير تقرير 1.";
+    };
+
+    document.getElementById("btnClear2").onclick = () => {
+      clearCompareFixedOutput();
+      document.getElementById("report2").value = "";
+      document.getElementById("compareResult").textContent = "تم تصفير تقرير 2.";
+    };
+
+    document.getElementById("btnLosWave").onclick = () => renderInputs("los");
+    document.getElementById("btnSandyWave").onclick = () => renderInputs("sandy");
+    document.getElementById("btnWaveCheck").onclick = checkWaveDistribution;
+    document.getElementById("btnWaveClear").onclick = clearWaveSection;
+
+    document.getElementById("btnRandomize").onclick = randomizeUnitsAllGroups;
+    document.getElementById("btnRandomCompare").onclick = randomCompare;
+    document.getElementById("btnRandomDup").onclick = randomDup;
+    document.getElementById("btnRandomDist").onclick = randomDist;
+    document.getElementById("btnRandomClear").onclick = clearRandomSection;
+    document.getElementById("btnUnitLogin").onclick = loginUnitToReport;
+    document.getElementById("btnUnitLogout").onclick = logoutUnitToReport;
+
+    document.getElementById("btnUndo").onclick = undoLastAction;
+    document.getElementById("btnRedo").onclick = redoLastAction;
+
+    document.getElementById("btnCopyReport").onclick = copyTextareaValue("randomOutput", "btnCopyReport", "تم النسخ بنجاح عاشت ايدك ✅", "ماكو أي تقرير موجود حتى ننسخه!");
+    document.getElementById("btnCopyCompareFixed").onclick = copyTextareaValue("compareFixedOutput", "btnCopyCompareFixed", "تم النسخ بنجاح عاشت ايدك ✅", "ماكو أي تقرير موجود حتى ننسخه!");
+
+    initUnitModal();
+    initCustomContextMenu();
+    updateHistoryButtons();
+  </script>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var EMPTY='بانتظار إجراء الفحص الميداني...';
+  var DUP_OK='✅ السجل نظيف — لا يوجد أي تكرار بين الوحدات';
+  var BAL_OK='✅ التوزيع متوازن ومطابق لمعايير المقاطعة بالكامل';
+  var lastAction='fix';
+  ['btnCompare','btnDup','btnDist','btnFixReport'].forEach(function(id){
+    $(id).addEventListener('click',function(){lastAction=id;},true);
+  });
+  function reset(el){el.innerHTML='';var d=document.createElement('div');d.className='out-empty';d.textContent=EMPTY;el.appendChild(d);}
+  function ok(el,t){el.innerHTML='';var d=document.createElement('div');d.className='out-ok';d.textContent=t;el.appendChild(d);}
+  function blocks(el,bl,bad){
+    el.innerHTML='';
+    bl.forEach(function(b){
+      var d=document.createElement('div');d.className='out-warn'+((b.bad||bad)?' bad':'');
+      if(b.title){var t=document.createElement('b');t.textContent=b.title;d.appendChild(t);}
+      b.items.forEach(function(x){var r=document.createElement('div');r.textContent=x;d.appendChild(r);});
+      el.appendChild(d);
+    });
+  }
+  function parseBlocks(text){
+    return text.split(/\n\s*\n/).map(function(p){
+      var ls=p.split('\n').map(function(l){return l.trim()}).filter(Boolean);
+      if(!ls.length)return null;
+      if(/:$/.test(ls[0])) return {title:ls[0].replace(/:$/,''),items:ls.slice(1)};
+      return {title:'',items:ls};
+    }).filter(Boolean);
+  }
+  function route(){
+    var t=$('compareResult').textContent.trim(), dup=$('dupBody'), aud=$('auditBody');
+    if(!t){reset(dup);reset(aud);return;}
+    if(/^تم تصفير/.test(t)){reset(dup);reset(aud);return;}
+    var success='عاشت ايدك، تقريرك مضبوط ومابي أي غلط!';
+    if(t===success){ if(lastAction==='btnDup')ok(dup,DUP_OK); else ok(aud,BAL_OK); return; }
+    if(/^الوحدات المكررة/.test(t)){var b=parseBlocks(t);blocks(dup,[{title:'وحدات مكررة بتقرير 2',items:b[0].items.concat(b.slice(1).reduce(function(a,x){return a.concat(x.items)},[]))}],true);return;}
+    if(/^(خربطة|هاي الوحدات)/.test(t)){var b2=parseBlocks(t);blocks(aud,[{title:b2[0].title,items:b2[0].items.concat(b2.slice(1).reduce(function(a,x){return a.concat(x.items)},[]))}]);return;}
+    if(/^عاشت ايدك، تقريرك مضبوط بعد التصحيح/.test(t)){
+      var dB=[],aB=[];
+      parseBlocks(t).slice(1).forEach(function(b){
+        if(/التقرير ما يحتاج/.test(b.items.join(' ')+b.title)&&!b.title)return;
+        if(/النسخ المكررة|لسه اكو تكرار/.test(b.title)) dB.push({title:b.title.replace(/^انتبه:\s*/,'تنبيه: '),items:b.items,bad:/لسه/.test(b.title)});
+        else aB.push({title:b.title.replace(/^انتبه:\s*/,'تنبيه: '),items:b.items,bad:/انتبه/.test(b.title)});
+      });
+      if(dB.length)blocks(dup,dB);else ok(dup,DUP_OK);
+      if(aB.length)blocks(aud,aB);else ok(aud,BAL_OK);
+      return;
+    }
+    blocks(aud,[{title:'',items:[t]}]); // validation notes
+  }
+  new MutationObserver(route).observe($('compareResult'),{childList:true,characterData:true,subtree:true});
+  reset($('dupBody'));reset($('auditBody'));
+
+  /* live stats */
+  function stats(){
+    var active={},out={},all={},sec=null;
+    $('report2').value.split(/\r?\n/).forEach(function(raw){
+      var line=raw.trim(); if(!line)return;
+      if(/:$/.test(line)){sec=normalizeSection(line.slice(0,-1));return;}
+      if(!sec)return;
+      var exit=isExitSection(sec);
+      extractUnitsFromLine(line).map(getUnitCode).forEach(function(c){
+        all[c]=1; if(exit)out[c]=1; else active[c]=1;
+      });
+    });
+    $('statUnits').textContent=Object.keys(active).length;
+    $('statLeaders').textContent=Object.keys(out).length;
+    $('statTotal').textContent=Object.keys(all).length;
+  }
+  var last='';
+  setInterval(function(){var v=$('report2').value;if(v!==last){last=v;stats();}},400);
+  $('report2').addEventListener('input',stats);
+  stats();
+
+  /* quick-fix item in the context menu */
+  $('ctxFix').addEventListener('click',function(){
+    $('customContextMenu').classList.remove('show');
+    $('btnFixReport').click();
+  });
+})();
+</script>
+
+
+</body>
+</html>
